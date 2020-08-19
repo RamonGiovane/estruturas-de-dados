@@ -30,13 +30,14 @@ int main()
 
     printf("\n Remove 6 \n\n");
 
-    removeRecursivo(&p, 7);
+    removeNaoRecursivo(&p, 6);
 
     printInOrdem(p);
 
     terminaABP(p);
 
-
+    system("pause");
+    
     return 0;
 
 

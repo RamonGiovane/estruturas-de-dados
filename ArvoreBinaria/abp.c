@@ -108,6 +108,55 @@ int removeRecursivo(Apontador *raiz, TChave chave)
          
             raiz = &(*raiz)->dir;
         }
+
+        aux->info = (*raiz)->info;
+        aux = *raiz;
+        *raiz = aux->esq;
+    }
+
+    free(aux);
+    return 1;
+}
+
+int removeNaoRecursivo(Apontador *raiz, TChave chave)
+{
+
+    while(*raiz != NULL){
+        
+        if((*raiz)->info.chave == chave) break;
+
+        if (chave > (*raiz)->info.chave)
+            raiz = &(*raiz)->dir;
+
+        else if(chave < (*raiz)->info.chave) 
+            raiz = &(*raiz)->esq;
+
+    }
+
+    if (*raiz == NULL)
+        return 0;
+
+
+    //Se nao caiu em nenhum dos ifs, achou-se o elemento a
+    // ser removido
+    Apontador aux = *raiz; //aux esta apontando pra quem eu quero remover
+
+    if ((*raiz)->dir == NULL) // se *raiz não tem filho direito
+        *raiz = (*raiz)->esq; 
+
+    else if ((*raiz)->esq == NULL) //se *raiz não tem filho esquerdo
+        *raiz = (*raiz)->dir; 
+
+    
+    else // se tem os dois filhos
+    {
+        raiz = &(*raiz)->esq;
+
+        while ((*raiz)->dir != NULL)
+        {
+         
+            raiz = &(*raiz)->dir;
+        }
         
         aux->info = (*raiz)->info;
         aux = *raiz;

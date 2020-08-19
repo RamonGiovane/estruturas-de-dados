@@ -9,7 +9,7 @@ typedef struct {
 
 typedef struct Nodo{
 
-    ///Dados que cada nó carrega
+    ///Dados que cada nï¿½ carrega
     TElemento info;
 
     ///Proximos elementos
@@ -28,6 +28,8 @@ int pesquisaRecursiva(Apontador, TChave, TElemento*);
 void printInOrdem(Apontador);
 
 int removeRecursivo(Apontador*, TChave);
+
+int removeNaoRecursivo(Apontador *, TChave);
 
 Apontador criaABP();
 
