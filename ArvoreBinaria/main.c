@@ -20,19 +20,17 @@ int main()
     TElemento e3;
     e3.chave = 10;
 
-    printf("1\n");
     insereRecursivo(&p, e);
     insereRecursivo(&p, e1);
     insereRecursivo(&p, e2);
     insereRecursivo(&p, e3);
 
-    printf("2\n");
 
     printInOrdem(p);
 
     printf("\n Remove 6 \n\n");
 
-    removeRecursivo(&p, 6);
+    removeRecursivo(&p, 7);
 
     printInOrdem(p);
 

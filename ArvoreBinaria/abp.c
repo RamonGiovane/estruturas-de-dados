@@ -92,24 +92,23 @@ int removeRecursivo(Apontador *raiz, TChave chave)
     // ser removido
     Apontador aux = *raiz; //aux esta apontando pra quem eu quero remover
 
-    if ((*raiz)->dir == NULL)
-        *raiz = (*raiz)->esq;
+    if ((*raiz)->dir == NULL) // se *raiz não tem filho direito
+        *raiz = (*raiz)->esq; 
 
-    else if ((*raiz)->esq == NULL)
-        *raiz = (*raiz)->dir;
+    else if ((*raiz)->esq == NULL) //se *raiz não tem filho esquerdo
+        *raiz = (*raiz)->dir; 
 
-    if (*raiz != NULL) // Se não é nó folha
+    
+    else // se tem os dois filhos
     {
         raiz = &(*raiz)->esq;
 
         while ((*raiz)->dir != NULL)
         {
-            printf("w\n");
+         
             raiz = &(*raiz)->dir;
         }
-
-        printf("e w\n");
-
+        
         aux->info = (*raiz)->info;
         aux = *raiz;
         *raiz = aux->esq;
