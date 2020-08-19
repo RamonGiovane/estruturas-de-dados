@@ -20,11 +20,12 @@ int main()
     TElemento e3;
     e3.chave = 10;
 
-    insereRecursivo(&p, e);
-    insereRecursivo(&p, e1);
-    insereRecursivo(&p, e2);
-    insereRecursivo(&p, e3);
+    TElemento e4;
 
+    insereNaoRecursivo(&p, e);
+    insereNaoRecursivo(&p, e1);
+    insereNaoRecursivo(&p, e2);
+    insereNaoRecursivo(&p, e3);
 
     printInOrdem(p);
 
@@ -32,13 +33,17 @@ int main()
 
     removeNaoRecursivo(&p, 6);
 
+    
+    printf("\n Pesquisa 8:  ");
+    pesquisaNaoRecursiva(p, 8, &e4);
+    printf("%d\n\n", e4.chave);
+
     printInOrdem(p);
 
     terminaABP(p);
 
+    printf("\n");
     system("pause");
-    
+
     return 0;
-
-
 }

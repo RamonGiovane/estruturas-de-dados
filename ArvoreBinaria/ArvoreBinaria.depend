@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1597808772 source:c:\users\t.i\desktop\ramon\ed2\arvorebinaria\main.c
+1597851059 source:c:\users\t.i\desktop\ramon\ed2\arvorebinaria\main.c
 	<stdio.h>
 	<stdlib.h>
 	"abp.h"
 
-1597808692 c:\users\t.i\desktop\ramon\ed2\arvorebinaria\abp.h
+1597851049 c:\users\t.i\desktop\ramon\ed2\arvorebinaria\abp.h
 
 1597781440 source:c:\users\t.i\desktop\ramon\ed2\arvorebinaria\abp.c
 	<stdio.h>

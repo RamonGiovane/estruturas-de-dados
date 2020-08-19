@@ -27,6 +27,34 @@ int insereRecursivo(Apontador *raiz, TElemento e)
     return 0; ///Elemento já existe
 }
 
+
+///Insere TElemento na arvore a partir de um ponteiro da raiz
+int insereNaoRecursivo(Apontador *raiz, TElemento e)
+{
+
+    while (*raiz != NULL)
+    {
+
+        if (e.chave == (*raiz)->info.chave)
+            return 0;
+
+        if (e.chave > (*raiz)->info.chave)
+            raiz = &(*raiz)->dir;
+
+        else if (e.chave < (*raiz)->info.chave)
+            raiz = &(*raiz)->esq;
+    }
+
+    //Se saiu do while, quer dizer que chegou-se no filho (null) de uma folha
+    *raiz = (Apontador)malloc(sizeof(TNodo));
+    (*raiz)->info = e;
+    (*raiz)->esq = NULL;
+    (*raiz)->dir = NULL;
+
+    return 1; /// Inserção realizada com sucesso
+}
+
+
 ///Pesquisa a partir da raiz, TChave e se achar retorna como
 /// TElemento*
 int pesquisaRecursiva(Apontador raiz, TChave chave,
@@ -48,37 +76,35 @@ int pesquisaRecursiva(Apontador raiz, TChave chave,
     return pesquisaRecursiva(raiz->esq, chave, retorno);
 }
 
-void printInOrdem(Apontador p)
+///Pesquisa a partir da raiz, TChave e se achar retorna como
+/// TElemento*
+int pesquisaNaoRecursiva(Apontador raiz, TChave chave,
+                      TElemento *retorno)
 {
-    //ESQUERDA, PROCESSA PAI, DIREITA
-    if (p != NULL)
-    {
-        printInOrdem(p->esq);
-        printf("\n%d", p->info.chave);
-        printInOrdem(p->dir);
+    
+    while(raiz != NULL) {
+
+        if (raiz->info.chave == chave) {
+            *retorno = raiz->info;
+            return 1;
+        }
+
+         if (chave > raiz->info.chave)
+            raiz = raiz->dir;
+        
+        else
+            raiz = raiz->esq;
+
     }
+    
+    return 0;
+
 }
 
-void terminaABP(Apontador p)
-{
-
-    if (p != NULL)
-    {
-        terminaABP(p->esq);
-        terminaABP(p->dir);
-        free(p);
-    }
-}
-
-Apontador criaABP()
-{
-    return NULL;
-}
 
 int removeRecursivo(Apontador *raiz, TChave chave)
 {
 
-    printf("0 chave %d\n", (*raiz)->info.chave);
     if (*raiz == NULL)
         return 0;
 
@@ -93,19 +119,18 @@ int removeRecursivo(Apontador *raiz, TChave chave)
     Apontador aux = *raiz; //aux esta apontando pra quem eu quero remover
 
     if ((*raiz)->dir == NULL) // se *raiz não tem filho direito
-        *raiz = (*raiz)->esq; 
+        *raiz = (*raiz)->esq;
 
     else if ((*raiz)->esq == NULL) //se *raiz não tem filho esquerdo
-        *raiz = (*raiz)->dir; 
+        *raiz = (*raiz)->dir;
 
-    
     else // se tem os dois filhos
     {
         raiz = &(*raiz)->esq;
 
         while ((*raiz)->dir != NULL)
         {
-         
+
             raiz = &(*raiz)->dir;
         }
 
@@ -121,43 +146,42 @@ int removeRecursivo(Apontador *raiz, TChave chave)
 int removeNaoRecursivo(Apontador *raiz, TChave chave)
 {
 
-    while(*raiz != NULL){
-        
-        if((*raiz)->info.chave == chave) break;
+    while (*raiz != NULL)
+    {
+
+        if ((*raiz)->info.chave == chave)
+            break;
 
         if (chave > (*raiz)->info.chave)
             raiz = &(*raiz)->dir;
 
-        else if(chave < (*raiz)->info.chave) 
+        else if (chave < (*raiz)->info.chave)
             raiz = &(*raiz)->esq;
-
     }
 
     if (*raiz == NULL)
         return 0;
-
 
     //Se nao caiu em nenhum dos ifs, achou-se o elemento a
     // ser removido
     Apontador aux = *raiz; //aux esta apontando pra quem eu quero remover
 
     if ((*raiz)->dir == NULL) // se *raiz não tem filho direito
-        *raiz = (*raiz)->esq; 
+        *raiz = (*raiz)->esq;
 
     else if ((*raiz)->esq == NULL) //se *raiz não tem filho esquerdo
-        *raiz = (*raiz)->dir; 
+        *raiz = (*raiz)->dir;
 
-    
     else // se tem os dois filhos
     {
         raiz = &(*raiz)->esq;
 
         while ((*raiz)->dir != NULL)
         {
-         
+
             raiz = &(*raiz)->dir;
         }
-        
+
         aux->info = (*raiz)->info;
         aux = *raiz;
         *raiz = aux->esq;
@@ -166,3 +190,31 @@ int removeNaoRecursivo(Apontador *raiz, TChave chave)
     free(aux);
     return 1;
 }
+
+void printInOrdem(Apontador p)
+{
+    //ESQUERDA, PROCESSA PAI, DIREITA
+    if (p != NULL)
+    {
+        printInOrdem(p->esq);
+        printf("\n%d", p->info.chave);
+        printInOrdem(p->dir);
+    }
+}
+
+void terminaABP(Apontador p)
+{
+    //Usa pos-ordem
+    if (p != NULL)
+    {
+        terminaABP(p->esq);
+        terminaABP(p->dir);
+        free(p);
+    }
+}
+
+Apontador criaABP()
+{
+    return NULL;
+}
+

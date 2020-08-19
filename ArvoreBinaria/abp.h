@@ -22,8 +22,14 @@ typedef TNodo *Apontador;
 ///Insere TElemento na arvore a partir de um ponteiro da raiz
 int insereRecursivo(Apontador*, TElemento);
 
+///Insere TElemento na arvore a partir de um ponteiro da raiz
+int insereNaoRecursivo(Apontador*, TElemento);
+
 ///Pesquisa a partir da raiz, TChave e se achar retorna como TElemento*
 int pesquisaRecursiva(Apontador, TChave, TElemento*);
+
+///Pesquisa a partir da raiz, TChave e se achar retorna como TElemento*
+int pesquisaNaoRecursiva(Apontador, TChave, TElemento*);
 
 void printInOrdem(Apontador);
 
