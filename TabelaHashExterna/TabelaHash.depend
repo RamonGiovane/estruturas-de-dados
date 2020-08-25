@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1598383023 source:c:\users\t.i\desktop\ramon\ed2\tabelahash\abp.c
+	<stdio.h>
+	<stdlib.h>
+	"abp.h"
+
+1597851049 c:\users\t.i\desktop\ramon\ed2\tabelahash\abp.h
+
+1598390645 source:c:\users\t.i\desktop\ramon\ed2\tabelahash\main.c
+	<stdio.h>
+	<stdlib.h>
+	"hash.h"
+
+1598384250 c:\users\t.i\desktop\ramon\ed2\tabelahash\hash.h
+	"abp.h"
+

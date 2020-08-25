@@ -13,18 +13,18 @@ int insereRecursivo(Apontador *raiz, TElemento e)
         (*raiz)->esq = NULL;
         (*raiz)->dir = NULL;
 
-        return 1; /// Inserção realizada com sucesso
+        return 1; /// Inserï¿½ï¿½o realizada com sucesso
     }
 
-    ///Se é maior que a raiz vai para direita
+    ///Se ï¿½ maior que a raiz vai para direita
     if (e.chave > (*raiz)->info.chave)
         return insereRecursivo(&(*raiz)->dir, e);
 
-    ///Se é maior que a raiz vai para esquerda
+    ///Se ï¿½ maior que a raiz vai para esquerda
     if (e.chave < (*raiz)->info.chave)
         return insereRecursivo(&(*raiz)->esq, e);
 
-    return 0; ///Elemento já existe
+    return 0; ///Elemento jï¿½ existe
 }
 
 
@@ -51,7 +51,7 @@ int insereNaoRecursivo(Apontador *raiz, TElemento e)
     (*raiz)->esq = NULL;
     (*raiz)->dir = NULL;
 
-    return 1; /// Inserção realizada com sucesso
+    return 1; /// Inserï¿½ï¿½o realizada com sucesso
 }
 
 
@@ -72,7 +72,7 @@ int pesquisaRecursiva(Apontador raiz, TChave chave,
     if (chave > raiz->info.chave)
         return pesquisaRecursiva(raiz->dir, chave, retorno);
 
-    //se nao é maior, nem igual, vai para a esquerda
+    //se nao ï¿½ maior, nem igual, vai para a esquerda
     return pesquisaRecursiva(raiz->esq, chave, retorno);
 }
 
@@ -118,10 +118,10 @@ int removeRecursivo(Apontador *raiz, TChave chave)
     // ser removido
     Apontador aux = *raiz; //aux esta apontando pra quem eu quero remover
 
-    if ((*raiz)->dir == NULL) // se *raiz não tem filho direito
+    if ((*raiz)->dir == NULL) // se *raiz nï¿½o tem filho direito
         *raiz = (*raiz)->esq;
 
-    else if ((*raiz)->esq == NULL) //se *raiz não tem filho esquerdo
+    else if ((*raiz)->esq == NULL) //se *raiz nï¿½o tem filho esquerdo
         *raiz = (*raiz)->dir;
 
     else // se tem os dois filhos
@@ -166,10 +166,10 @@ int removeNaoRecursivo(Apontador *raiz, TChave chave)
     // ser removido
     Apontador aux = *raiz; //aux esta apontando pra quem eu quero remover
 
-    if ((*raiz)->dir == NULL) // se *raiz não tem filho direito
+    if ((*raiz)->dir == NULL) // se *raiz nï¿½o tem filho direito
         *raiz = (*raiz)->esq;
 
-    else if ((*raiz)->esq == NULL) //se *raiz não tem filho esquerdo
+    else if ((*raiz)->esq == NULL) //se *raiz nï¿½o tem filho esquerdo
         *raiz = (*raiz)->dir;
 
     else // se tem os dois filhos
