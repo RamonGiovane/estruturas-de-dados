@@ -1,3 +1,7 @@
 # Estruturas de Dados em C
 
-- Arvore Binária de Pesquisa
+- Árvore Binária de Pesquisa
+
+- Tabela Hash Com Encadeamento Externo
+
+   > Utiliza a Árvore Binária de Pesquisa
