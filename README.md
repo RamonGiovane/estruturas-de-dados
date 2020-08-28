@@ -4,4 +4,10 @@
 
 - Tabela Hash Com Encadeamento Externo
 
-   > Utiliza a Árvore Binária de Pesquisa
+   > Utiliza Árvore Binária de Pesquisa
+
+- Grafo Usando Matriz de Adjacência
+
+- Grafo Usando Lista de Adjacência
+   > Utiliza Lista Encadeada internamente
+
