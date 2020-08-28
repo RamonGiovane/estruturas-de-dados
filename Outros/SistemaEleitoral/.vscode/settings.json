@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "cstdio": "c",
+        "typeinfo": "c"
+    },
+    "cquery.cacheDirectory": "${workspaceFolder}/.vscode/cquery_cached_index/"
+}

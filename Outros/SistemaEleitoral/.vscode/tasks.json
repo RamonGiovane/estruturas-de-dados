@@ -1,0 +1,56 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "SistemaEleitoral",
+            "command": "g++",
+            "args": [
+                "-g",
+                "cedula.h",
+                "abp.h",
+                "abp.c",
+                "lista.h",
+                "lista.c",
+                "hash_abp.h",
+                "hash_abp.c",
+                "hash_lista.h",
+                "hash_lista.c",
+                "main.c",
+                "-o",
+                "main.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "C/C++: gcc.exe build active file",
+            "command": "C:\\ProgramData\\chocolatey\\bin\\gcc.exe",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
