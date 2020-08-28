@@ -30,5 +30,6 @@ int insere_posicao(Lista, TElemento, int );
 int busca_elemento(Lista,TChave, TElemento *);
 int lista_vazia(Lista);
 int lista_cheia(Lista);
+void print_lista(Lista l);
 
 #endif // LISTA_H_INCLUDED

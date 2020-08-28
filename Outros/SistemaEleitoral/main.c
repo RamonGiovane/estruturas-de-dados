@@ -2,35 +2,45 @@
 #include <stdlib.h>
 #include "cedula.h"
 #include "hash_abp.h"
+#include "hash_lista.h"
+#include "hash_duplo.h"
 #include "abp.h"
 
 int main()
 {
     printf("Hello world!\n");
 
-    int i;
-    HashAbp t;
+  
 
-    t = cria_hash_abp(10);
+    char strs[5][10] = {"foo", "bar", "bletch", "zipty", "zhadfg"};
 
-    srand(1);
-    
-     TElemento e;
+    //HashAbp t = cria_hash_abp(10);
 
-    for (size_t i = 0; i < 10; i++)
+    //HashLista t = cria_hash_lista(10);
+
+    HashDuplo t = cria_hash_duplo(10);
+
+    TElemento e;
+
+    for (int i = 0; i < 5; i++)
     {
-       
-        sprintf(e.id.tituloEleitor, "%d", rand() % 50);
+        sprintf(e.id.tituloEleitor, "%s", strs[i]);
 
         print_tch(e.id);
 
-        insere_hash_abp(t, e);
+        insere_hash_duplo(t, e);
+        //insere_hash_lista(t, e);
+        //insere_hash_abp(t, e);
     }
     
     printf("\n");
-    print_hash_abp(t);
+    print_hash_duplo(t);
+    //print_hash_lista(t);
+    //print_hash_abp(t);
 
-    termina_hash_abp(t);
+    termina_hash_duplo(t);
+    //termina_hash_lista(t);
+    //termina_hash_abp(t);
 
     printf("\n");
     system("pause");

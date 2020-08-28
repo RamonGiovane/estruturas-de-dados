@@ -157,3 +157,16 @@ int lista_cheia(Lista l){
     return 0;
   }
 }
+
+void print_lista(Lista l){
+  if(l == NULL || l->n == 0) return;
+
+  tipo_nodo* n = l->first;
+
+  while (n)
+  {
+    print_tch(n->info.id);
+    n = n->next;
+  }
+  
+}
