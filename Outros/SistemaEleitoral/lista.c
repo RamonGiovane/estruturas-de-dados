@@ -139,7 +139,7 @@ int busca_elemento(Lista l, TChave ch, TElemento *e){
     p=p->next;
   }
 
-  return 0;
+  return -1;
 
 }
 int lista_vazia(Lista l){

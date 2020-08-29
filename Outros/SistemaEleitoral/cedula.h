@@ -1,6 +1,6 @@
 #ifndef CEDULA_H_INCLUDED
 #define CEDULA_H_INCLUDED
-#define TITULO_ELEITOR 14
+#define TITULO_ELEITOR 8
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -13,11 +13,13 @@ typedef struct TChave
 
 typedef struct
 {
-    int votoPrefeito;
-    int votoVereador;
+    int prefeito;
+    int vereador;
     TChave id;
 
     bool vazio;
+    bool votouPrefeito;
+    bool votouVereador;
 
 } TElemento;
 
@@ -37,7 +39,7 @@ inline void print_tch(TChave ch)
 inline void print_elemento(TElemento e)
 {
     printf("Titulo de Eleitor: %s\nVoto para Prefeito %d\nVoto para Vereador%d\n\n",
-           e.id.tituloEleitor, e.votoPrefeito, e.votoVereador);
+           e.id.tituloEleitor, e.prefeito, e.vereador);
 }
 
 //Função Hash A: Gera um valor hash a partir de TChave
