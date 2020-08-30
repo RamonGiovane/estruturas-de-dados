@@ -22,6 +22,8 @@
                 "hash_duplo.c",
                 "hash_lista.h",
                 "hash_lista.c",
+                "io.h",
+                "io.c",
                 "main.c",
                 "-o",
                 "main.exe"
