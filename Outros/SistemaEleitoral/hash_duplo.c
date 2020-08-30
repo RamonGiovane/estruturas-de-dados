@@ -11,7 +11,7 @@ HashDuplo cria_hash_duplo(unsigned int n){
      t->elementos = (TElemento*)malloc(sizeof(TElemento)*n);
      if(t->elementos!=NULL){
       for(i=0;i<n;i++)
-        t->elementos[i].vazio = 1;
+        t->elementos[i].status.vazio = 1;
       t->tamanho =n;
       t->numElementos =0;
      }
@@ -38,7 +38,7 @@ int insere_hash_duplo(HashDuplo t,TElemento e){
   incremento = tch_hash_b(e.id, t->tamanho);
   while(1){
     
-    if(t->elementos[posicao%t->tamanho].vazio == 0){      
+    if(t->elementos[posicao%t->tamanho].status.vazio == 0){      
       posicao += incremento;
     }
     
@@ -55,15 +55,17 @@ int insere_hash_duplo(HashDuplo t,TElemento e){
 /*retorna a posição da tabela caso encontre ou -1 em caso
 contrário*/
 int pesquisa_hash_duplo(HashDuplo t,TChave ch,TElemento*e){
-  int posicao = tch_hash_a(ch,t->tamanho),i=0,incremento;
+  
 
-  if(t->numElementos ==0)
+  if(!t || t->numElementos ==0)
     return -1;
+
+  int posicao = tch_hash_a(ch,t->tamanho),i=0,incremento;
 
   incremento = tch_hash_b(ch,t->tamanho);
 
   while(i<t->tamanho){
-    if(t->elementos[posicao%t->tamanho].vazio == 0 &&
+    if(t->elementos[posicao%t->tamanho].status.vazio == 0 &&
        tchcmp(ch,t->elementos[posicao%t->tamanho].id) == 0){
        *e = t->elementos[posicao%t->tamanho];
        return posicao%t->tamanho;
@@ -76,12 +78,41 @@ int pesquisa_hash_duplo(HashDuplo t,TChave ch,TElemento*e){
 }
 
 
+
+int altera_hash_duplo(HashDuplo t, TElemento e){
+
+
+  if(!t || t->numElementos ==0)
+    return 0;
+
+  int posicao = tch_hash_a(e.id,t->tamanho);
+  int i = 0, incremento;
+
+  incremento = tch_hash_b(e.id,t->tamanho);
+
+  while(i<t->tamanho){
+    
+    if(t->elementos[posicao%t->tamanho].status.vazio == 0 &&
+       tchcmp(e.id,t->elementos[posicao%t->tamanho].id) == 0){
+       
+       t->elementos[posicao%t->tamanho] = e;
+       
+       return 1;
+    }
+
+    i++;
+    posicao+=incremento;
+  }
+
+  return 0;
+}
+
 int remove_hash_duplo(HashDuplo t ,TChave ch){
   int posicao ;
   TElemento e;
   posicao = pesquisa_hash_duplo(t,ch, &e);
   if(posicao !=-1){
-    t->elementos[posicao].vazio = 1;
+    t->elementos[posicao].status.vazio = 1;
     t->numElementos--;
     return 1;
   }
@@ -98,7 +129,7 @@ void print_hash_duplo(HashDuplo t){
   for (int i = 0; i < t->tamanho; i++)
   {
     printf("\n%d: ", i);
-    if(!t->elementos[i].vazio)
+    if(!t->elementos[i].status.vazio)
       print_tch(t->elementos[i].id);
   }
   

@@ -32,6 +32,13 @@ int insere_hash_lista(HashLista th, TElemento e)
     return insere_apos(th->elementos[indice], e);
 }
 
+int altera_hash_lista(HashLista th, TElemento e){
+    
+    int indice = tch_hash_a(e.id, th->tam);
+
+    return altera_elemento(th->elementos[indice], e);
+}
+
 void termina_hash_lista(HashLista th)
 {
 

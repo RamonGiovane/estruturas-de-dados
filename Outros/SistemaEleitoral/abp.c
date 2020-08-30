@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "cedula.h"
 #include "abp.h"
 
 ///Insere TElemento na arvore a partir de um ponteiro da raiz
@@ -48,6 +49,27 @@ int pesquisa_abp(Abp raiz, TChave id,
     //se nao é maior, nem igual, vai para a esquerda
     return pesquisa_abp(raiz->esq, id, retorno);
 }
+
+///Pesquisa a partir da raiz, TChave e se achar retorna como
+/// TElemento*
+int altera_abp(Abp raiz, TElemento e)
+{
+    if (raiz == NULL)
+        return 0;
+
+    if (tchcmp(raiz->info.id, e.id) == 0)
+    {
+        raiz->info = e;
+        return 1;
+    }
+
+    if (tchcmp(e.id, raiz->info.id) > 0)
+        return altera_abp(raiz->dir, e);
+
+    //se nao é maior, nem igual, vai para a esquerda
+    return altera_abp(raiz->esq, e);
+}
+
 
 
 int remove_abp(Abp *raiz, TChave id)

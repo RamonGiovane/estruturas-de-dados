@@ -28,6 +28,7 @@ int remove_elemento(Lista, TChave);
 int insere_apos(Lista , TElemento );
 int insere_posicao(Lista, TElemento, int );
 int busca_elemento(Lista,TChave, TElemento *);
+int altera_elemento(Lista, TElemento);
 int lista_vazia(Lista);
 int lista_cheia(Lista);
 void print_lista(Lista l);

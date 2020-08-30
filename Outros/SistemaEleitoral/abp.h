@@ -27,6 +27,8 @@ int pesquisa_abp(Abp, TChave, TElemento*);
 ///Pesquisa a partir da raiz, TChave e se achar retorna como TElemento*
 int pesquisaNaoRecursiva(Abp, TChave, TElemento*);
 
+int altera_abp(Abp raiz, TElemento e);
+
 void printInOrdem(Abp);
 
 int remove_abp(Abp*, TChave);

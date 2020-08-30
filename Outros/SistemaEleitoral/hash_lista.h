@@ -22,5 +22,6 @@ void termina_hash_lista(HashLista th);
 int pesquisa_hash_lista (HashLista th,  TChave ch,  TElemento *e);
 int remove_hash_lista(HashLista th, TChave ch);
 void print_hash_lista(HashLista th);
+int altera_hash_lista(HashLista th, TElemento e);
 
 #endif // hash_lista_H_INCLUDED

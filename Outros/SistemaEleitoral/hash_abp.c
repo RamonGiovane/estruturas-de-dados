@@ -25,13 +25,19 @@ HashAbp cria_hash_abp(int tamanho){
 
 int insere_hash_abp(HashAbp th, TElemento e){
 
-    int indice = tch_hash_b(e.id, th->tam);
+    int indice = tch_hash_a(e.id, th->tam);
 
     printf("\tindice %d\n", indice);
     return insere_abp(&th->elementos[indice], e);
 
 }
 
+int altera_hash_abp(HashAbp th, TElemento e){
+
+    int indice = tch_hash_a(e.id, th->tam);
+
+    return altera_abp(th->elementos[indice], e);
+}
 
 void termina_hash_abp(HashAbp th){
 

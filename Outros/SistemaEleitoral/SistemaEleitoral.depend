@@ -1,0 +1,71 @@
+# depslib dependency file v1.0
+1598724426 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\abp.c
+	<stdio.h>
+	<stdlib.h>
+	"cedula.h"
+	"abp.h"
+
+1598725771 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\abp.h
+	"cedula.h"
+
+1598729001 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\cedula.h
+	<string.h>
+	<stdio.h>
+	<stdbool.h>
+
+1598725900 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_lista.c
+	<stdlib.h>
+	<stdio.h>
+	"abp.h"
+	"cedula.h"
+	"lista.h"
+	"hash_lista.h"
+
+1598720928 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\lista.h
+	"cedula.h"
+
+1598718278 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_lista.h
+	"lista.h"
+
+1598714764 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\lista.c
+	<stdio.h>
+	<stdlib.h>
+	"cedula.h"
+	"lista.h"
+
+1598725734 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_abp.c
+	<stdlib.h>
+	<stdio.h>
+	"abp.h"
+	"cedula.h"
+	"hash_abp.h"
+
+1598718292 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_abp.h
+	"abp.h"
+
+1598725860 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_duplo.c
+	<stdio.h>
+	<stdlib.h>
+	"cedula.h"
+	"hash_duplo.h"
+	<string.h>
+
+1598725866 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_duplo.h
+	"cedula.h"
+
+1598724063 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	"cedula.h"
+	"hash_abp.h"
+	"hash_lista.h"
+	"hash_duplo.h"
+	"abp.h"
+
+1598725111 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\cedula.c
+	<string.h>
+	<stdio.h>
+	<stdbool.h>
+	"cedula.h"
+

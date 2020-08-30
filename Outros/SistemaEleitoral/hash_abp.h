@@ -22,5 +22,6 @@ void termina_hash_abp(HashAbp th);
 int pesquisa_hash_abp (HashAbp th,  TChave ch,  TElemento *e);
 int remove_hash_abp(HashAbp th, TChave ch);
 void print_hash_abp(HashAbp th);
+int altera_hash_abp(HashAbp th, TElemento e);
 
 #endif // HASH_ABP_H_INCLUDED

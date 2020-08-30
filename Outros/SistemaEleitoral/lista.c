@@ -49,6 +49,29 @@ int remove_elemento(Lista l, TChave ch){
   return remove_elemento_i(l, i, &_);
 }
 
+
+int altera_elemento(Lista l, TElemento e){
+  
+  tipo_nodo *n;
+
+  if(!l || l->n == 0) return 0;  
+
+  n = l->first;
+
+  while (n)
+  {
+    if(tchcmp(n->info.id, e.id) == 0){
+      n->info = e;
+      return 1;
+    }
+
+    n = n->next;
+  }
+  
+  return 0;
+  
+} 
+
 int remove_elemento_i(Lista l, int indice, TElemento*e){
    tipo_nodo *p,*ant;
    int i;
