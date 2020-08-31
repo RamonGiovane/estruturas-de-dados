@@ -59,10 +59,10 @@ int pesquisa_hash_abp (HashAbp th,  TChave ch,  TElemento *e){
     return pesquisa_abp(th->elementos[i], ch, e);
 }
 
-int remove_hash_abp(HashAbp th, TChave ch){
+int remove_hash_abp(HashAbp th, TChave ch, TElemento* e){
     int indice = tch_hash_a(ch, th->tam);
 
-    return remove_abp(&(th)->elementos[indice], ch);
+    return remove_abp(&(th)->elementos[indice], ch, e);
 }
 
 void print_hash_abp(HashAbp th){

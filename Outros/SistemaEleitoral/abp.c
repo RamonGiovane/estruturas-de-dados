@@ -72,17 +72,17 @@ int altera_abp(Abp raiz, TElemento e)
 
 
 
-int remove_abp(Abp *raiz, TChave id)
+int remove_abp(Abp *raiz, TChave id, TElemento* e)
 {
 
     if (*raiz == NULL)
         return 0;
 
     if (tchcmp(id, (*raiz)->info.id) > 0)
-        return remove_abp(&(*raiz)->dir, id);
+        return remove_abp(&(*raiz)->dir, id, e);
 
     if (tchcmp(id, (*raiz)->info.id) < 0)
-        return remove_abp(&(*raiz)->esq, id);
+        return remove_abp(&(*raiz)->esq, id, e);
 
     //Se nao caiu em nenhum dos ifs, achou-se o elemento a
     // ser removido
@@ -109,6 +109,8 @@ int remove_abp(Abp *raiz, TChave id)
         *raiz = aux->esq;
     }
 
+ 
+    *e = aux->info;
     free(aux);
     return 1;
 }

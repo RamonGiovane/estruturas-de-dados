@@ -97,6 +97,40 @@ int pesquisa_candidato(HashCandidatos t, int num, TCandidato *c)
     return -1;
 }
 
+/*Adiciona -1 voto ao candidato indicado por seu <numero>. Se ele ainda não existir na tabela, retorna-se 0.
+Caso exista, retorna-se o número de votos que ele possui*/
+int decrementa_candidato(HashCandidatos t, int numero)
+{
+
+    if (!t)
+        return 0;
+
+    int posicao = hash_a(numero, t->tamanho), i = 0, incremento;
+
+    incremento = hash_b(numero, t->tamanho);
+
+    while (i < t->tamanho)
+    {
+
+        //Se achar...
+        if (t->elementos[posicao % t->tamanho].status.vazio == 0 &&
+            numero == t->elementos[posicao % t->tamanho].numeroCandidato)
+        {
+
+            //Computa mais um voto
+            t->elementos[posicao % t->tamanho].status.numeroVotos -= 1;
+            return  t->elementos[posicao % t->tamanho].status.numeroVotos;
+        }
+
+        i++;
+        posicao += incremento;
+    }
+
+    return 0;
+}
+
+
+
 /*Adiciona +1 voto ao candidato indicado por seu <numero>. Se ele ainda não existir na tabela, será inserido.
 Retorna o número de votos deste candidato ou 0 caso não seja possível computar o voto.*/
 int computa_candidato(HashCandidatos t, int numero)

@@ -19,14 +19,14 @@ enum Acao
     INVALIDO = -1
 };
 
-enum Estrutura
+enum TipoEstrutura
 {
     HASH_DUPLO = 1,
     HASH_ABP = 2,
     HASH_LISTA = 3
 };
 
-enum Classes
+enum ClassePolitica
 {
     PREFEITO = 1,
     VEREADOR = 2
@@ -40,25 +40,27 @@ typedef struct
 
     HashCandidatos hashVereadores, hashPrefeitos;
 
+    int tipo_estrutura;
+
 } Estruturas;
 
 
-int obter_total_votos(Estruturas *est, int tipo_est)
+int obter_total_votos(Estruturas *est)
 {
-    if (tipo_est == HASH_LISTA)
+    if (est->tipo_estrutura  == HASH_LISTA)
         return est->hashLista->n;
 
-    if (tipo_est == HASH_DUPLO)
+    if (est->tipo_estrutura == HASH_DUPLO)
         return est->hashDuplo->numElementos;
 
     return est->hashAbp->n;
 }
 
-bool pesquisar_voto(Estruturas *est, int tipo_est, TChave id, TElemento *e)
+bool pesquisar_voto(Estruturas *est, TChave id, TElemento *e)
 {
-    if (tipo_est == HASH_LISTA)
+    if (est->tipo_estrutura == HASH_LISTA)
         return pesquisa_hash_lista(est->hashLista, id, e) != -1 ? true : false;
-    if (tipo_est == HASH_DUPLO)
+    if (est->tipo_estrutura == HASH_DUPLO)
         return pesquisa_hash_duplo(est->hashDuplo, id, e) != -1 ? true : false;
 
     return pesquisa_hash_abp(est->hashAbp, id, e) != 0 ? true : false;
@@ -92,22 +94,22 @@ int registrar_escolha(Estruturas *est, int classe, int numeroCandidato, TElement
     return 0;
 }
 
-bool editar_voto(Estruturas *est, int tipo_est, TElemento e)
+bool editar_voto(Estruturas *est, TElemento e)
 {
-    if (tipo_est == HASH_LISTA)
+    if (est->tipo_estrutura == HASH_LISTA)
         return altera_hash_lista(est->hashLista, e);
-    else if (tipo_est == HASH_DUPLO)
+    else if (est->tipo_estrutura == HASH_DUPLO)
         return altera_hash_duplo(est->hashDuplo, e);
 
     return altera_hash_abp(est->hashAbp, e);
 }
 
-bool inserir_voto(Estruturas *est, int tipo_est, TElemento e)
+bool inserir_voto(Estruturas *est, TElemento e)
 {
 
-    if (tipo_est == HASH_LISTA)
+    if (est->tipo_estrutura == HASH_LISTA)
         return insere_hash_lista(est->hashLista, e);
-    else if (tipo_est == HASH_DUPLO)
+    else if (est->tipo_estrutura == HASH_DUPLO)
         return insere_hash_duplo(est->hashDuplo, e);
 
     return insere_hash_abp(est->hashAbp, e);
@@ -117,7 +119,7 @@ bool checar_voto(char *parametros[4], int *classe, int *candidato)
 {
 
     //Checando classe
-    if (parametros[1] == NULL)
+    if (parametros[1][0] == '\0')
         return invalido("classe do candidato");
 
     *classe = atoi(parametros[1]);
@@ -126,10 +128,10 @@ bool checar_voto(char *parametros[4], int *classe, int *candidato)
         return invalido("classe do candidato");
 
     //Checando titulo
-    if (parametros[2] == NULL)
+    if (parametros[2][0] == '\0')
         return invalido("titulo do eleitor");
 
-    if (parametros[3] == NULL)
+    if (parametros[3][0] == '\0')
         return invalido("numero do candidato");
 
     *candidato = atoi(parametros[3]);
@@ -141,7 +143,7 @@ bool checar_voto(char *parametros[4], int *classe, int *candidato)
  * A estrutura a ser inserida será a definida em <tipo_est> (int).
  * Os <parametros> (char*[4]) de entrada serão necessários para a contabilização do voto.
  * Retorna 1 em caso de sucesso, 0 do contrario*/
-bool votar(Estruturas *est, int tipo_est, char *parametros[4])
+bool votar(Estruturas *est, char *parametros[4])
 {
 
     int classe, candidato;
@@ -155,7 +157,7 @@ bool votar(Estruturas *est, int tipo_est, char *parametros[4])
     TElemento voto;
     strcpy(voto.id.tituloEleitor, parametros[2]);
 
-    bool votoExiste = pesquisar_voto(est, tipo_est, voto.id, &voto);
+    bool votoExiste = pesquisar_voto(est,voto.id, &voto);
 
     //int totalDeVotos = obter_total_votos(est, tipo_est);
 
@@ -167,10 +169,53 @@ bool votar(Estruturas *est, int tipo_est, char *parametros[4])
         return 0;
 
     //Salavando TElemento em estrutura
-    bool status = votoExiste ? editar_voto(est, tipo_est, voto) 
-        : inserir_voto(est, tipo_est, voto);
+    bool status = votoExiste ? editar_voto(est, voto) 
+        : inserir_voto(est, voto);
 
     return !status ? votoInvalido() : votoValido(candidato, votosCandidato);
+}
+
+bool remocao_valida(int votosValidos){
+    printf("\nmeliante removido, %d votos válidos no sistema.\n", votosValidos);
+    return true;
+}
+
+bool remocao_invalida(int votosValidos){
+    printf("\nmeliante não removido, %d votos válidos no sistema.\n", votosValidos);
+    return false;
+}
+
+
+bool remover_voto(Estruturas *est, bool printLog, char *parametros[4]){
+    
+    if(parametros[1][0] == '\0')
+        return invalido("titulo do eleitor");
+
+    TChave ch;
+    int status;
+    strcpy(ch.tituloEleitor, parametros[1]);
+
+    TElemento e;
+    if(est->tipo_estrutura == HASH_LISTA)
+       status = remove_hash_lista(est->hashLista, ch, &e);
+    
+    else if(est->tipo_estrutura == HASH_DUPLO)
+        status = remove_hash_duplo(est->hashDuplo, ch, &e);
+    
+    else status = remove_hash_abp(est->hashAbp, ch, &e);
+
+    if(status){
+        if(e.status.votouPrefeito)
+            decrementa_candidato(est->hashPrefeitos, e.prefeito);
+        if(e.status.votouVereador)
+            decrementa_candidato(est->hashVereadores, e.vereador);
+    }
+
+    if(!printLog) return status;
+
+    int votosValidos = obter_total_votos(est);
+    return status ? remocao_valida(votosValidos) : remocao_invalida(votosValidos);
+
 }
 
 void encerrar(Estruturas *est)
@@ -185,7 +230,7 @@ void encerrar(Estruturas *est)
     free(est);
 }
 
-bool interpretar_acao(Estruturas *est, int tipo_est, char *acao, char *resultado[4])
+bool interpretar_acao(Estruturas *est, char *acao, char *resultado[4])
 {
 
     quebrarString(acao, " ", resultado, 4);
@@ -199,12 +244,12 @@ bool interpretar_acao(Estruturas *est, int tipo_est, char *acao, char *resultado
     switch (a)
     {
     case VOTAR:
-        votar(est, tipo_est, resultado);
+        votar(est, resultado);
         return 1;
 
     case REMOVER:
-        printf("\nAcao de remover");
-        break;
+        remover_voto(est, true, resultado);
+        return 1;
 
     case APURAR:
         printf("Acao de apurar");
@@ -221,28 +266,39 @@ bool interpretar_acao(Estruturas *est, int tipo_est, char *acao, char *resultado
     return true;
 }
 
-Estruturas *cria_estruturas(unsigned int tamanhoVotos, unsigned int tamanhoCandidatos)
+Estruturas* cria_estruturas(int tipo_estrutura, unsigned int tamanhoVotos, unsigned int tamanhoCandidatos)
 {
     Estruturas *est = (Estruturas *)malloc(sizeof(Estruturas));
 
-    est->hashAbp = cria_hash_abp(tamanhoVotos);
-    est->hashDuplo = cria_hash_duplo(tamanhoVotos);
-    est->hashLista = cria_hash_lista(tamanhoVotos);
+    if(tipo_estrutura == HASH_ABP)
+        est->hashAbp = cria_hash_abp(tamanhoVotos);
+
+    else if(tipo_estrutura == HASH_DUPLO)
+        est->hashDuplo = cria_hash_duplo(tamanhoVotos);
+    
+    else if(tipo_estrutura == HASH_LISTA)
+        est->hashLista = cria_hash_lista(tamanhoVotos);
+    
+    else
+        return NULL;
+    
+    est->tipo_estrutura = tipo_estrutura;
 
     est->hashPrefeitos = cria_hash_candidatos(tamanhoCandidatos);
     est->hashVereadores = cria_hash_candidatos(tamanhoCandidatos);
+
+    
 
     return est;
 }
 
 int entrada_de_dados()
 {
-    Estruturas *est = cria_estruturas(1000, 100);
-
     int tipo_est = lerInteiro("Tipo da estrutura\n1-Hash Duplo\n2-Hash com Abp\n3-Hash com Lista\n->>");
 
-    if (tipo_est < 1 || tipo_est > 3)
-        return invalido("tipo estrutura invalido");
+    Estruturas *est = cria_estruturas(tipo_est, 1000, 100);
+
+    if(est == NULL) return invalido("tipo estrutura invalido");
 
     char s_acao[STD_BUF];
     char *resultado[4];
@@ -250,9 +306,9 @@ int entrada_de_dados()
     while (true)
     {
 
-        lerString("Digite uma ação: ", s_acao, STD_BUF);
+        lerString("\nDigite uma ação: ->>", s_acao, STD_BUF);
 
-        if (!interpretar_acao(est, tipo_est, s_acao, resultado))
+        if (!interpretar_acao(est, s_acao, resultado))
             return 0;
     }
 

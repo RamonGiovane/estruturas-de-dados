@@ -40,13 +40,12 @@ int insere_inicio(Lista l, TElemento e){
   return 1;
 }
 
-int remove_elemento(Lista l, TChave ch){
-  
-  TElemento _;
+int remove_elemento(Lista l, TChave ch, TElemento *e){
 
-  int i = busca_elemento(l, ch, &_);
 
-  return remove_elemento_i(l, i, &_);
+  int i = busca_elemento(l, ch, e);
+
+  return remove_elemento_i(l, i, e);
 }
 
 

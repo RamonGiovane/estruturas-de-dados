@@ -23,7 +23,7 @@ int insere_inicio(Lista l, TElemento e);
 int remove_elemento_i(Lista, int,TElemento*);
 
 //Remove elemento pela chave
-int remove_elemento(Lista, TChave);
+int remove_elemento(Lista, TChave, TElemento*);
 
 int insere_apos(Lista , TElemento );
 int insere_posicao(Lista, TElemento, int );

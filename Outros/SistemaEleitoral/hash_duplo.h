@@ -7,6 +7,7 @@ typedef struct{
   TElemento * elementos;
   int tamanho;
   int numElementos;
+  int numColisoes;
 }t_hash_duplo;
 
 typedef t_hash_duplo *HashDuplo;
@@ -14,7 +15,7 @@ typedef t_hash_duplo *HashDuplo;
 HashDuplo cria_hash_duplo(unsigned int);
 int insere_hash_duplo(HashDuplo,TElemento);
 int pesquisa_hash_duplo(HashDuplo,TChave,TElemento*);
-int remove_hash_duplo(HashDuplo ,TChave);
+int remove_hash_duplo(HashDuplo ,TChave, TElemento*);
 int pesquisa_hash_duplo(HashDuplo,TChave,TElemento*);
 int altera_hash_duplo(HashDuplo, TElemento);
 void print_hash_duplo(HashDuplo);

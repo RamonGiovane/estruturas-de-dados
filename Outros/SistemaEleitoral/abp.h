@@ -31,7 +31,7 @@ int altera_abp(Abp raiz, TElemento e);
 
 void printInOrdem(Abp);
 
-int remove_abp(Abp*, TChave);
+int remove_abp(Abp*, TChave, TElemento*);
 
 int removeNaoRecursivo(Abp *, TChave);
 

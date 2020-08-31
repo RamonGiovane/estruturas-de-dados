@@ -12,6 +12,7 @@ HashLista cria_hash_lista(int tamanho)
 
     thash->tam = tamanho;
     thash->n = 0;
+    thash->numColisoes = 0;
 
     thash->elementos = (Lista *)malloc(sizeof(Lista) * tamanho);
 
@@ -33,7 +34,7 @@ int insere_hash_lista(HashLista th, TElemento e)
 }
 
 int altera_hash_lista(HashLista th, TElemento e){
-    
+
     int indice = tch_hash_a(e.id, th->tam);
 
     return altera_elemento(th->elementos[indice], e);
@@ -59,11 +60,11 @@ int pesquisa_hash_lista(HashLista th, TChave ch, TElemento *e)
     return busca_elemento(th->elementos[i], ch, e);
 }
 
-int remove_hash_lista(HashLista th, TChave ch)
+int remove_hash_lista(HashLista th, TChave ch, TElemento* e)
 {
     int indice = tch_hash_a(ch, th->tam);
 
-    return remove_elemento(th->elementos[indice], ch);
+    return remove_elemento(th->elementos[indice], ch, e);
 }
 
 void print_hash_lista(HashLista th)
