@@ -11,6 +11,7 @@ HashAbp cria_hash_abp(int tamanho){
 
     thash->tam = tamanho;
     thash->n = 0;
+    thash->numColisoes = 0;
 
     thash->elementos = (Abp*) malloc(sizeof(Abp) * tamanho);
 
@@ -28,7 +29,11 @@ int insere_hash_abp(HashAbp th, TElemento e){
     int indice = tch_hash_a(e.id, th->tam);
 
     printf("\tindice %d\n", indice);
-    return insere_abp(&th->elementos[indice], e);
+    int status = insere_abp(&th->elementos[indice], e);
+
+    if(status) th->n += 1;
+
+    return status;
 
 }
 
@@ -62,7 +67,12 @@ int pesquisa_hash_abp (HashAbp th,  TChave ch,  TElemento *e){
 int remove_hash_abp(HashAbp th, TChave ch, TElemento* e){
     int indice = tch_hash_a(ch, th->tam);
 
-    return remove_abp(&(th)->elementos[indice], ch, e);
+    int status = remove_abp(&(th)->elementos[indice], ch, e);
+
+    if(status) th->n -= 1;
+
+    return status;
+
 }
 
 void print_hash_abp(HashAbp th){

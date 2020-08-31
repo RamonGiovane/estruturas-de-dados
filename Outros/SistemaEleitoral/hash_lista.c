@@ -30,7 +30,12 @@ int insere_hash_lista(HashLista th, TElemento e)
     int indice = tch_hash_a(e.id, th->tam);
 
     printf("\tindice %d\n", indice);
-    return insere_apos(th->elementos[indice], e);
+    int status = insere_apos(th->elementos[indice], e);
+    
+    if(status) th->n += 1;
+
+    return status;
+
 }
 
 int altera_hash_lista(HashLista th, TElemento e){
@@ -64,7 +69,12 @@ int remove_hash_lista(HashLista th, TChave ch, TElemento* e)
 {
     int indice = tch_hash_a(ch, th->tam);
 
-    return remove_elemento(th->elementos[indice], ch, e);
+    int status = remove_elemento(th->elementos[indice], ch, e);
+
+    if(status) th->n -= 1;
+
+    return status;
+
 }
 
 void print_hash_lista(HashLista th)

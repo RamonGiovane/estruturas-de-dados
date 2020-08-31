@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "io.h"
+#include "tabela_candidatos.h"
 
 int lerInteiro(const char *txt)
 {
@@ -63,4 +64,23 @@ bool votoInvalido()
 {
     printf("\nvoto não computado.\n");
     return false;
+}
+
+bool remocao_valida(int votosValidos)
+{
+    printf("\nmeliante removido, %d votos válidos no sistema.\n", votosValidos);
+    return true;
+}
+
+bool remocao_invalida(int votosValidos)
+{
+    printf("\nmeliante não removido, %d votos válidos no sistema.\n", votosValidos);
+    return false;
+}
+
+void print_ranking(Ranking r){
+    
+    printf("\n=== RANKING ===\n");
+    for(int i = 0; i<r->numElementos; i++)
+        printf("%d %d votos(s)\n", r->elementos[i].numeroCandidato, r->elementos[i].status.numeroVotos);
 }

@@ -1,16 +1,8 @@
 #ifndef HASH_CANDIDATOS_H_INCLUDED
 #define HASH_CANDIDATOS_H_INCLUDED
 #include <stdbool.h>
-
-typedef struct {
-    bool vazio;
-    unsigned int numeroVotos;
-}TStatusCandidato;
-
-typedef struct{
-    int numeroCandidato;
-    TStatusCandidato status;
-}TCandidato;
+#include "abp.h"
+#include "candidato.h"
 
 
 typedef struct{
@@ -20,6 +12,9 @@ typedef struct{
 }t_hash_candidatos;
 
 typedef t_hash_candidatos *HashCandidatos;
+
+typedef t_hash_candidatos *Ranking;
+
 
 HashCandidatos cria_hash_candidatos(unsigned int);
 int insere_candidato(HashCandidatos, TCandidato);
@@ -32,4 +27,6 @@ void termina_hash_candidatos(HashCandidatos);
 int computa_candidato(HashCandidatos, int);
 int decrementa_candidato(HashCandidatos, int);
 
+Ranking obter_ranking(HashCandidatos, int);
+void termina_ranking(Ranking);
 #endif // HASH_CANDIDATOS_H_INCLUDED
