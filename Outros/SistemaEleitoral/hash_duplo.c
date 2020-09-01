@@ -30,7 +30,7 @@ HashDuplo cria_hash_duplo(unsigned int n)
 
 int insere_hash_duplo(HashDuplo t, TElemento e)
 {
-  int posicao = tch_hash_a(e.id, t->tamanho), incremento;
+  int posicao = tch_hash(e.id, t->tamanho), incremento;
   TElemento eAux;
 
   if (t->numElementos == t->tamanho)
@@ -39,13 +39,16 @@ int insere_hash_duplo(HashDuplo t, TElemento e)
   if (pesquisa_hash_duplo(t, e.id, &eAux) != -1)
     return 0;
 
-  incremento = tch_hash_b(e.id, t->tamanho);
+  
   while (1)
   {
+
+    incremento = tch_hash_inc(e.id, posicao, t->tamanho);
 
     if (t->elementos[posicao % t->tamanho].status.vazio == 0)
     {
       posicao += incremento;
+      t->numColisoes += 1; //colisão!
     }
 
     else
@@ -65,12 +68,12 @@ int pesquisa_hash_duplo(HashDuplo t, TChave ch, TElemento *e)
   if (!t || t->numElementos == 0)
     return -1;
 
-  int posicao = tch_hash_a(ch, t->tamanho), i = 0, incremento;
-
-  incremento = tch_hash_b(ch, t->tamanho);
+  int posicao = tch_hash(ch, t->tamanho), i = 0, incremento;
 
   while (i < t->tamanho)
   {
+    incremento = tch_hash_inc(ch, posicao, t->tamanho);
+
     if (t->elementos[posicao % t->tamanho].status.vazio == 0 &&
         tchcmp(ch, t->elementos[posicao % t->tamanho].id) == 0)
     {
@@ -90,13 +93,14 @@ int altera_hash_duplo(HashDuplo t, TElemento e)
   if (!t || t->numElementos == 0)
     return 0;
 
-  int posicao = tch_hash_a(e.id, t->tamanho);
+  int posicao = tch_hash(e.id, t->tamanho);
   int i = 0, incremento;
 
-  incremento = tch_hash_b(e.id, t->tamanho);
 
   while (i < t->tamanho)
   {
+
+    incremento = tch_hash_inc(e.id, posicao, t->tamanho);
 
     if (t->elementos[posicao % t->tamanho].status.vazio == 0 &&
         tchcmp(e.id, t->elementos[posicao % t->tamanho].id) == 0)
@@ -130,6 +134,8 @@ int remove_hash_duplo(HashDuplo t, TChave ch, TElemento* e)
 
 void termina_hash_duplo(HashDuplo t)
 {
+  if(t == NULL) return;
+
   free(t->elementos);
   free(t);
 }

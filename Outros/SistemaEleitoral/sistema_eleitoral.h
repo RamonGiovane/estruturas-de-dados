@@ -31,8 +31,8 @@ enum TipoEstrutura
 
 enum ClassePolitica
 {
-    PREFEITO = 1,
-    VEREADOR = 2
+    PREFEITO = 0,
+    VEREADOR = 1
 };
 
 typedef struct
@@ -47,6 +47,8 @@ typedef struct
 
 } Estruturas;
 
+
+int obter_colisoes(Estruturas *est);
 
 int obter_total_votos(Estruturas *est);
 
@@ -72,6 +74,6 @@ bool remover_voto(Estruturas *est, char *parametros[4]);
 
 void encerrar(Estruturas *est);
 
-Estruturas *cria_estruturas(int tipo_estrutura, unsigned int tamanhoVotos, unsigned int tamanhoCandidatos);
+Estruturas *cria_estruturas(int, unsigned int, unsigned int, unsigned int);
 
 #endif

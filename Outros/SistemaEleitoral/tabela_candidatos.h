@@ -28,5 +28,6 @@ int computa_candidato(HashCandidatos, int);
 int decrementa_candidato(HashCandidatos, int);
 
 Ranking obter_ranking(HashCandidatos, int);
+void print_ranking_str(HashCandidatos, int);
 void termina_ranking(Ranking);
 #endif // HASH_CANDIDATOS_H_INCLUDED

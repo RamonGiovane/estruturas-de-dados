@@ -26,9 +26,12 @@ HashAbp cria_hash_abp(int tamanho){
 
 int insere_hash_abp(HashAbp th, TElemento e){
 
-    int indice = tch_hash_a(e.id, th->tam);
+    int indice = tch_hash(e.id, th->tam);
 
-    printf("\tindice %d\n", indice);
+    //Colisão!
+    if(th->elementos[indice] != NULL)
+        th->numColisoes += 1;
+
     int status = insere_abp(&th->elementos[indice], e);
 
     if(status) th->n += 1;
@@ -39,13 +42,15 @@ int insere_hash_abp(HashAbp th, TElemento e){
 
 int altera_hash_abp(HashAbp th, TElemento e){
 
-    int indice = tch_hash_a(e.id, th->tam);
+    int indice = tch_hash(e.id, th->tam);
 
     return altera_abp(th->elementos[indice], e);
 }
 
 void termina_hash_abp(HashAbp th){
 
+    if(th == NULL) return;
+    
     for (int i = 0; i < th->tam; i++)
     {
         termina_abp(th->elementos[i]);
@@ -59,13 +64,13 @@ void termina_hash_abp(HashAbp th){
 
 
 int pesquisa_hash_abp (HashAbp th,  TChave ch,  TElemento *e){
-    int i = tch_hash_a(ch, th->tam);
+    int i = tch_hash(ch, th->tam);
 
     return pesquisa_abp(th->elementos[i], ch, e);
 }
 
 int remove_hash_abp(HashAbp th, TChave ch, TElemento* e){
-    int indice = tch_hash_a(ch, th->tam);
+    int indice = tch_hash(ch, th->tam);
 
     int status = remove_abp(&(th)->elementos[indice], ch, e);
 

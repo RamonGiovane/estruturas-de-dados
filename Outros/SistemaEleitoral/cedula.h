@@ -40,8 +40,8 @@ void print_tch(TChave ch);
 void print_elemento(TElemento e);
 
 //Função Hash A: Gera um valor hash a partir de TChave
-unsigned int tch_hash_a(TChave ch, unsigned int m);
+unsigned int tch_hash(TChave ch, unsigned int m);
 //Funcão Hash B: Gera uma valor hash a partir de TChave
-unsigned int tch_hash_b(TChave ch, unsigned int m);
+unsigned int tch_hash_inc(TChave ch, int p, unsigned int m);
 
 #endif // CEDULA_H_INCLUDED

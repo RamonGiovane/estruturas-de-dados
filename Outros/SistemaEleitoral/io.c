@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #include "io.h"
 #include "tabela_candidatos.h"
 
@@ -44,8 +45,6 @@ void quebrarString(char *s, const char *delimitador, char *resultado[], int size
     {
         resultado[i++] = token;
 
-        printf("TOKEN: %s\n", token);
-
         token = strtok(NULL, delimitador);
     }
 }
@@ -78,9 +77,56 @@ bool remocao_invalida(int votosValidos)
     return false;
 }
 
-void print_ranking(Ranking r){
+// void print_ranking(Ranking r){
     
-    printf("\n=== RANKING ===\n");
-    for(int i = 0; i<r->numElementos; i++)
-        printf("%d %d votos(s)\n", r->elementos[i].numeroCandidato, r->elementos[i].status.numeroVotos);
+//     printf("\n=== RANKING ===\n");
+//     for(int i = 0; i<r->numElementos; i++)
+//         printf("%d %d votos(s)\n", r->elementos[i].numeroCandidato, r->elementos[i].status.numeroVotos);
+// }
+
+void print_exec(int colisoes, long tempo){
+    printf("\n\n=============\n");
+    printf("Número de Colisões: %d", colisoes);
+    printf("\nTempo de Execução %lu ms:\n\n", tempo);
+}
+
+FILE* abrir_arquivo_leitura(const char * caminho){
+    return fopen(caminho, "r");
+}
+
+bool ler_linha(FILE *f, char * conteudoLido, int tamanhoLinha){
+
+    return fgets(conteudoLido, tamanhoLinha, f) != NULL;
+}
+
+int fechar_arquivo(FILE* f){
+    return fclose(f);
+}
+
+bool checar_numero_primo(int numero){
+    
+    for (int i = 2; i <= numero / 2; i++) {
+
+        // condition for non-prime
+        if (numero % i == 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+clock_t cronometrar(clock_t start){
+   
+    
+    if(start == 0){
+       return clock();
+    }
+   
+    clock_t t2 = clock();
+    clock_t elapsed;
+    elapsed = ((double)t2 - start) / CLOCKS_PER_SEC * 1000;
+    
+    return elapsed;
+
 }

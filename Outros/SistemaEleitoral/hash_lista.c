@@ -27,9 +27,12 @@ HashLista cria_hash_lista(int tamanho)
 int insere_hash_lista(HashLista th, TElemento e)
 {
 
-    int indice = tch_hash_a(e.id, th->tam);
+    int indice = tch_hash(e.id, th->tam);
 
-    printf("\tindice %d\n", indice);
+    //Colisão
+    if(th->elementos[indice]->n > 0)
+        th->numColisoes += 1;
+
     int status = insere_apos(th->elementos[indice], e);
     
     if(status) th->n += 1;
@@ -40,14 +43,15 @@ int insere_hash_lista(HashLista th, TElemento e)
 
 int altera_hash_lista(HashLista th, TElemento e){
 
-    int indice = tch_hash_a(e.id, th->tam);
+    int indice = tch_hash(e.id, th->tam);
 
     return altera_elemento(th->elementos[indice], e);
 }
 
 void termina_hash_lista(HashLista th)
 {
-
+    if(th == NULL) return;
+    
     for (int i = 0; i < th->tam; i++)
     {
         termina_lista(th->elementos[i]);
@@ -60,14 +64,14 @@ void termina_hash_lista(HashLista th)
 
 int pesquisa_hash_lista(HashLista th, TChave ch, TElemento *e)
 {
-    int i = tch_hash_a(ch, th->tam);
+    int i = tch_hash(ch, th->tam);
 
     return busca_elemento(th->elementos[i], ch, e);
 }
 
 int remove_hash_lista(HashLista th, TChave ch, TElemento* e)
 {
-    int indice = tch_hash_a(ch, th->tam);
+    int indice = tch_hash(ch, th->tam);
 
     int status = remove_elemento(th->elementos[indice], ch, e);
 

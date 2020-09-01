@@ -3,14 +3,22 @@
 #include <locale.h>
 #include <stdbool.h>
 #include "sistema_eleitoral.h"
+#include <time.h>
 #define STD_BUF 100
 
-bool interpretar_acao(Estruturas *est, char *acao, char *resultado[4])
-{
+#include "g_mocks.h"
+
+
+bool interpretar_acao(Estruturas *est, char *acao){
+
+
+    char *resultado[4];
 
     quebrarString(acao, " ", resultado, 4);
 
     int a = atoi(resultado[0]);
+
+
 
     switch (a)
     {
@@ -24,50 +32,100 @@ bool interpretar_acao(Estruturas *est, char *acao, char *resultado[4])
 
     case APURAR:
         apurar(est, resultado);
-        break;
+        return 1;
 
     case ENCERRAR:
-        encerrar(est);
-        return false;
+        return 0;
 
     default:
-        break;
+        return 1;
     }
 
-    return true;
 }
 
+int ler_tipo_estrutura(FILE *f){
 
-int entrada_de_dados(int argc, char* argv[])
-{
-    int tipo_est = lerInteiro("Tipo da estrutura\n1-Hash Duplo\n2-Hash com Abp\n3-Hash com Lista\n->>");
+    char linha[255];
+    ler_linha(f, linha, 255);
 
-    Estruturas *est = cria_estruturas(tipo_est, 1000, 100);
+    int t = atoi(linha);
 
-    if (est == NULL)
-        return invalido("tipo estrutura invalido");
+    return (t < 1 || t > 3)  ? invalido("tipo de estrutura") : t;
+}
 
-    char s_acao[STD_BUF];
-    char *resultado[4];
+int ler_capacidades(FILE *f, int * numVereadores, int * numPrefeitos, int * numEleitores){
 
-    while (true)
-    {
+    char linha[255], *valores[3];
+    ler_linha(f, linha, 255);
 
-        lerString("\nDigite uma ação: ->>", s_acao, STD_BUF);
+    quebrarString(linha, " ", valores, 3);
 
-        if (!interpretar_acao(est, s_acao, resultado))
-            return 0;
-    }
+    *numVereadores = atoi(valores[0]);
+    *numPrefeitos = atoi(valores[1]);
+    *numEleitores = atoi(valores[2]);
 
     return 1;
 }
 
+
+int ler_entrada(int argc, char* argv[]){
+
+    long tempo = cronometrar(0);
+
+    FILE *f = abrir_arquivo_leitura("input.txt");
+
+    char linha[255];
+    int vereadores, prefeitos, candidatos;
+
+    //Le a primeira linha: tipo da estrutura
+    int tipo_est = ler_tipo_estrutura(f);
+
+    //Le a segunda linha: numero de candidatos
+    ler_capacidades(f, &vereadores, &prefeitos, &candidatos);
+
+    Estruturas *est = cria_estruturas(tipo_est, vereadores, prefeitos, candidatos);
+
+    if (est == NULL)
+        return invalido("tipo estrutura invalido");
+
+
+
+    //Lê acoes
+    while (ler_linha(f, linha, 255))
+    {
+
+        printf("\n%s", linha);
+        
+        if (!interpretar_acao(est, linha))
+            break;
+    }
+
+    print_exec(obter_colisoes(est), cronometrar(tempo));
+
+    print_ranking_str(est->hashPrefeitos, 50);
+
+    encerrar(est);
+
+    printf("\n\nEleitores inseridos: %d\nEleitores removidos: %d\nVereadores inseridos:%d", g_e_insert, g_e_del, g_v_insert);
+    printf("\nVereadores removidos: %d\nPrefeitos inseridos: %d\nVereadores removidos: %d\n", g_v_del, g_p_insert, g_p_del);
+
+
+    system("pause");
+
+    return 0;
+    fechar_arquivo(f);
+    return 0;
+
+}
+
+
 int main(int argc, char* argv[])
 {
+
     if (setlocale(LC_ALL, "portuguese") == NULL)
         printf("\nLocalizacao invalida\n");
 
-    return entrada_de_dados(argc, argv);
+    return ler_entrada(argc, argv);
 
-    return 0;
+
 }

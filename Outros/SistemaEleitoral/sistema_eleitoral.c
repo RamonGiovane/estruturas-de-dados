@@ -4,7 +4,17 @@
 #include "sistema_eleitoral.h"
 #include "io.h"
 #include "tabela_candidatos.h"
+#include "g_mocks.h"
 
+int obter_colisoes(Estruturas *est){
+    if (est->tipo_estrutura == HASH_LISTA)
+        return est->hashLista->numColisoes;
+
+    if (est->tipo_estrutura == HASH_DUPLO)
+        return est->hashDuplo->numColisoes;
+
+    return est->hashAbp->numColisoes;
+}
 
 int obter_total_votos(Estruturas *est)
 {
@@ -29,6 +39,8 @@ bool pesquisar_voto(Estruturas *est, TChave id, TElemento *e)
 
 int registrar_escolha(Estruturas *est, int classe, int numeroCandidato, TElemento *voto)
 {
+    int status;
+
     if (classe == PREFEITO)
     {
         if (voto->status.votouPrefeito)
@@ -38,7 +50,11 @@ int registrar_escolha(Estruturas *est, int classe, int numeroCandidato, TElement
             voto->prefeito = numeroCandidato;
             voto->status.votouPrefeito = 1;
 
-            return computa_candidato(est->hashPrefeitos, numeroCandidato);
+            status = computa_candidato(est->hashPrefeitos, numeroCandidato);
+
+            if(status) g_p_insert++; else g_p_not_insert++;
+
+            return status;
         }
     }
     else
@@ -49,7 +65,11 @@ int registrar_escolha(Estruturas *est, int classe, int numeroCandidato, TElement
         {
             voto->vereador = numeroCandidato;
             voto->status.votouVereador = 1;
-            return computa_candidato(est->hashVereadores, numeroCandidato);
+            status = computa_candidato(est->hashVereadores, numeroCandidato);
+
+            if(status) g_v_insert++; else g_v_not_insert++;
+
+            return status;
         }
     }
     return 0;
@@ -67,13 +87,16 @@ bool editar_voto(Estruturas *est, TElemento e)
 
 bool inserir_voto(Estruturas *est, TElemento e)
 {
-
+    int status;
     if (est->tipo_estrutura == HASH_LISTA)
-        return insere_hash_lista(est->hashLista, e);
+        status = insere_hash_lista(est->hashLista, e);
     else if (est->tipo_estrutura == HASH_DUPLO)
-        return insere_hash_duplo(est->hashDuplo, e);
+        status = insere_hash_duplo(est->hashDuplo, e);
 
-    return insere_hash_abp(est->hashAbp, e);
+    else status = insere_hash_abp(est->hashAbp, e);
+
+    g_e_insert++;
+    return status;
 }
 
 bool checar_voto(char *parametros[4], int *classe, int *candidato)
@@ -85,7 +108,7 @@ bool checar_voto(char *parametros[4], int *classe, int *candidato)
 
     *classe = atoi(parametros[1]);
 
-    if (*classe < 1 || *classe > 2)
+    if (*classe < 0 || *classe > 1)
         return invalido("classe do candidato");
 
     //Checando titulo
@@ -106,6 +129,8 @@ bool checar_voto(char *parametros[4], int *classe, int *candidato)
  * Retorna 1 em caso de sucesso, 0 do contrario*/
 bool votar(Estruturas *est, char *parametros[4])
 {
+    if(strcmp(parametros[2], "yeu45x") == 0)
+        printf("\nSTOP!");
 
     int classe, candidato;
     TStatus def = TSTATUS_INIT;
@@ -127,7 +152,8 @@ bool votar(Estruturas *est, char *parametros[4])
 
     int votosCandidato = registrar_escolha(est, classe, candidato, &voto);
     if (!votosCandidato)
-        return 0;
+        return votoInvalido();
+
 
     //Salavando TElemento em estrutura
     bool status = votoExiste ? editar_voto(est, voto)
@@ -136,12 +162,14 @@ bool votar(Estruturas *est, char *parametros[4])
     return !status ? votoInvalido() : votoValido(candidato, votosCandidato);
 }
 
-Ranking gerar_ranking(Estruturas *est, int classe, int tamanho){
+void gerar_ranking(Estruturas *est, int classe, int tamanho){
     
-    if(classe == PREFEITO)
-        return obter_ranking(est->hashPrefeitos, tamanho);
+   
 
-    return obter_ranking(est->hashVereadores, tamanho);
+    if(classe == PREFEITO)
+         print_ranking_str(est->hashPrefeitos, tamanho);
+
+     print_ranking_str(est->hashVereadores, tamanho);
 }
 
 bool apurar(Estruturas *est, char *parametros[4])
@@ -152,7 +180,7 @@ bool apurar(Estruturas *est, char *parametros[4])
         return invalido("classe do candidato");
 
     classe = atoi(parametros[1]);
-    if (classe < 1 || classe > 3)
+    if (classe < 0 || classe > 1)
         return invalido("classe do candidato");
 
 
@@ -165,11 +193,11 @@ bool apurar(Estruturas *est, char *parametros[4])
         return invalido("tamanho do ranking");
 
     
-    Ranking ranking = gerar_ranking(est, classe, tamanho_ranking);
+    gerar_ranking(est, classe, tamanho_ranking);
 
-    print_ranking(ranking);
+    // print_ranking(ranking);
 
-    termina_ranking(ranking);
+    // termina_ranking(ranking);
 
     return 1;
     
@@ -197,10 +225,12 @@ bool remover_voto(Estruturas *est, char *parametros[4])
 
     if (status)
     {
+        g_e_del++; //mock
+
         if (e.status.votouPrefeito)
-            decrementa_candidato(est->hashPrefeitos, e.prefeito);
+            if(decrementa_candidato(est->hashPrefeitos, e.prefeito)) g_p_del++; //mock
         if (e.status.votouVereador)
-            decrementa_candidato(est->hashVereadores, e.vereador);
+            if(decrementa_candidato(est->hashVereadores, e.vereador)) g_v_del++; //mock
     }
 
     int votosValidos = obter_total_votos(est);
@@ -210,6 +240,8 @@ bool remover_voto(Estruturas *est, char *parametros[4])
 
 void encerrar(Estruturas *est)
 {
+     print_hash_abp(est->hashAbp);
+
     termina_hash_lista(est->hashLista);
     termina_hash_abp(est->hashAbp);
     termina_hash_duplo(est->hashDuplo);
@@ -220,26 +252,34 @@ void encerrar(Estruturas *est)
     free(est);
 }
 
-Estruturas *cria_estruturas(int tipo_estrutura, unsigned int tamanhoVotos, unsigned int tamanhoCandidatos)
+Estruturas *cria_estruturas(int tipo_estrutura, unsigned int prefeitos, unsigned int vereadores, unsigned int candidatos)
 {
     Estruturas *est = (Estruturas *)malloc(sizeof(Estruturas));
 
+     est->hashAbp = NULL; est->hashDuplo = NULL; est->hashLista = NULL;
+
+    while(!checar_numero_primo(candidatos)) candidatos++;
+
     if (tipo_estrutura == HASH_ABP)
-        est->hashAbp = cria_hash_abp(tamanhoVotos);
+        est->hashAbp = cria_hash_abp(candidatos);
 
     else if (tipo_estrutura == HASH_DUPLO)
-        est->hashDuplo = cria_hash_duplo(tamanhoVotos);
+        est->hashDuplo = cria_hash_duplo(candidatos);
 
     else if (tipo_estrutura == HASH_LISTA)
-        est->hashLista = cria_hash_lista(tamanhoVotos);
+        est->hashLista = cria_hash_lista(candidatos);
 
     else
         return NULL;
 
+    while(!checar_numero_primo(prefeitos)) prefeitos++;
+
+    while(!checar_numero_primo(vereadores)) vereadores++;
+
     est->tipo_estrutura = tipo_estrutura;
 
-    est->hashPrefeitos = cria_hash_candidatos(tamanhoCandidatos);
-    est->hashVereadores = cria_hash_candidatos(tamanhoCandidatos);
+    est->hashPrefeitos = cria_hash_candidatos(prefeitos);
+    est->hashVereadores = cria_hash_candidatos(vereadores);
 
     return est;
 }

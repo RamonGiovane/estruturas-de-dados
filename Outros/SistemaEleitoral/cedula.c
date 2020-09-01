@@ -24,24 +24,25 @@ void print_elemento(TElemento e)
 }
 
 //Função Hash A: Gera um valor hash a partir de TChave
-unsigned int tch_hash_a(TChave ch, unsigned int m)
+unsigned int tch_hash(TChave ch, unsigned int m)
 {
     unsigned int i, soma = 0;
-    for (i = 0; i < TITULO_ELEITOR / 2 && ch.tituloEleitor[i] != '\0'; i++)
+    for (i = 0;  ch.tituloEleitor[i] != '\0'; i++)
     {
-        soma += ch.tituloEleitor[i] * (ch.tituloEleitor[0] + 1);
+        soma += ch.tituloEleitor[i] * (i + 1);
     }
-    printf(" hash %d - hash mod M %d\n", soma, soma%m);
+
     return soma % m;
 }
 
-//Funcão Hash B: Gera uma valor hash a partir de TChave
-unsigned int tch_hash_b(TChave ch, unsigned int m)
+//Funcão Hash B: Gera uma valor hash de incremento
+unsigned int tch_hash_inc(TChave ch, int p, unsigned int m)
 {
-    unsigned int i, soma = 1;
-    for (i = 0; i < TITULO_ELEITOR && ch.tituloEleitor[i] != '\0'; i++){
-        soma +=  ch.tituloEleitor[i]  + (ch.tituloEleitor[i] % TITULO_ELEITOR);
+    unsigned int i, soma = 0;
+   
+    for (i = 0; ch.tituloEleitor[i] != '\0'; i++){
+        soma += ch.tituloEleitor[i] * (i + 1);
     }
-    printf(" hash %d - hash mod M %d\n", soma, (11 - soma) % m);
-    return (11 - soma) % m;
+
+    return (m - (soma * p % m) ) + 1;
 }
