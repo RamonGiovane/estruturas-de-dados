@@ -43,20 +43,20 @@ bool interpretar_acao(Estruturas *est, char *acao){
 
 }
 
-int ler_tipo_estrutura(FILE *f){
+int ler_tipo_estrutura(){
 
     char linha[255];
-    ler_linha(f, linha, 255);
+    ler_linha_arquivo(linha, 255);
 
     int t = atoi(linha);
 
     return (t < 1 || t > 3)  ? invalido("tipo de estrutura") : t;
 }
 
-int ler_capacidades(FILE *f, int * numVereadores, int * numPrefeitos, int * numEleitores){
+int ler_capacidades(int * numVereadores, int * numPrefeitos, int * numEleitores){
 
     char linha[255], *valores[3];
-    ler_linha(f, linha, 255);
+    ler_linha_arquivo(linha, 255);
 
     quebrarString(linha, " ", valores, 3);
 
@@ -72,16 +72,21 @@ int ler_entrada(int argc, char* argv[]){
 
     long tempo = cronometrar(0);
 
-    FILE *f = abrir_arquivo_leitura("input.txt");
+    if(!abrir_arquivo_leitura("input.txt"))
+        return invalido("arquivo de entrada");
+
+    if(!abrir_arquivo_escrita("output.txt"))
+        return invalido("arquivo de saída");
+
 
     char linha[255];
     int vereadores, prefeitos, candidatos;
 
     //Le a primeira linha: tipo da estrutura
-    int tipo_est = ler_tipo_estrutura(f);
+    int tipo_est = ler_tipo_estrutura();
 
     //Le a segunda linha: numero de candidatos
-    ler_capacidades(f, &vereadores, &prefeitos, &candidatos);
+    ler_capacidades(&vereadores, &prefeitos, &candidatos);
 
     Estruturas *est = cria_estruturas(tipo_est, vereadores, prefeitos, candidatos);
 
@@ -91,10 +96,10 @@ int ler_entrada(int argc, char* argv[]){
 
 
     //Lê acoes
-    while (ler_linha(f, linha, 255))
+    while (ler_linha_arquivo(linha, 255))
     {
 
-        printf("\n%s", linha);
+        fprint(linha);
         
         if (!interpretar_acao(est, linha))
             break;
@@ -102,9 +107,11 @@ int ler_entrada(int argc, char* argv[]){
 
     print_exec(obter_colisoes(est), cronometrar(tempo));
 
-    print_ranking_str(est->hashPrefeitos, 50);
+    print_ranking_str(est->hashPrefeitos, 5000);
 
     encerrar(est);
+
+    
 
     printf("\n\nEleitores inseridos: %d\nEleitores removidos: %d\nVereadores inseridos:%d", g_e_insert, g_e_del, g_v_insert);
     printf("\nVereadores removidos: %d\nPrefeitos inseridos: %d\nVereadores removidos: %d\n", g_v_del, g_p_insert, g_p_del);
@@ -112,8 +119,9 @@ int ler_entrada(int argc, char* argv[]){
 
     system("pause");
 
-    return 0;
-    fechar_arquivo(f);
+    fechar_arquivo_escrita();
+    fechar_arquivo_leitura();
+
     return 0;
 
 }

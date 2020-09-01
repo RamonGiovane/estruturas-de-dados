@@ -17,7 +17,7 @@ unsigned int f_hash(int ch, unsigned int m)
 //Funcão Hash B: Gera uma valor hash de incremento a partir de um int
 unsigned int f_hash_inc(int ch, int p,  unsigned int m)
 {
-	return (m - (p * ch % m)) + 1;
+	return (m - (p * ch % m));
 }
 
 HashCandidatos cria_hash_candidatos(unsigned int n)
@@ -31,6 +31,7 @@ HashCandidatos cria_hash_candidatos(unsigned int n)
 		{
 			for (i = 0; i < n; i++)
 				t->elementos[i].status.vazio = true;
+			
 			t->tamanho = n;
 			t->numElementos = 0;
 		}
@@ -104,32 +105,43 @@ int pesquisa_candidato(HashCandidatos t, int num, TCandidato *c)
 /*Adiciona -1 voto ao candidato indicado por seu <numero>. Se ele ainda não existir na tabela, retorna-se 0.*/
 int decrementa_candidato(HashCandidatos t, int numero)
 {
+	TCandidato c;
+	
+	int p = pesquisa_candidato(t, numero, &c);
 
-	if (!t)
-		return 0;
+	if(p != -1){
+		c.status.numeroVotos--;
+		t->elementos[p] = c;
 
-	int posicao = f_hash(numero, t->tamanho), i = 0, incremento;
-
-	while (i < t->tamanho)
-	{
-
-		incremento = f_hash_inc(numero, posicao, t->tamanho);
-
-		//Se achar...
-		if (t->elementos[posicao % t->tamanho].status.vazio == 0 &&
-				numero == t->elementos[posicao % t->tamanho].numeroCandidato)
-		{
-
-			//Computa menos um voto
-			t->elementos[posicao % t->tamanho].status.numeroVotos -= 1;
-			return 1;
-		}
-
-		i++;
-		posicao += incremento;
+		return c.status.numeroVotos;
 	}
 
 	return 0;
+	// if (!t)
+	// 	return 0;
+
+	// int posicao = f_hash(numero, t->tamanho), i = 0, incremento;
+
+	// while (i < t->tamanho)
+	// {
+
+	// 	incremento = f_hash_inc(numero, posicao, t->tamanho);
+
+	// 	//Se achar...
+	// 	if (t->elementos[posicao % t->tamanho].status.vazio == 0 &&
+	// 			numero == t->elementos[posicao % t->tamanho].numeroCandidato)
+	// 	{
+
+	// 		//Computa menos um voto
+	// 		t->elementos[posicao % t->tamanho].status.numeroVotos -= 1;
+	// 		return 1;
+	// 	}
+
+	// 	i++;
+	// 	posicao += incremento;
+	// }
+
+	// return 0;
 }
 
 /*Adiciona +1 voto ao candidato indicado por seu <numero>. Se ele ainda não existir na tabela, será inserido.
@@ -137,40 +149,58 @@ Retorna o número de votos deste candidato ou 0 caso não seja possível computa
 int computa_candidato(HashCandidatos t, int numero)
 {
 
-	if (!t)
-		return 0;
+	TCandidato c;
+	
+	int p = pesquisa_candidato(t, numero, &c);
 
-	int posicao = f_hash(numero, t->tamanho), i = 0, incremento;
+	if(p != -1){
+		c.status.numeroVotos++;
+		t->elementos[p] = c;
 
-	while (i < t->tamanho)
-	{
-
-		incremento = f_hash_inc(numero, posicao, t->tamanho);
-
-		//Se achar...
-		if (t->elementos[posicao % t->tamanho].status.vazio == 0 &&
-				numero == t->elementos[posicao % t->tamanho].numeroCandidato)
-		{
-
-			//Computa mais um voto
-			t->elementos[posicao % t->tamanho].status.numeroVotos += 1;
-			return t->elementos[posicao % t->tamanho].status.numeroVotos;
-		}
-
-		i++;
-		posicao += incremento;
+		return c.status.numeroVotos;
 	}
 
 	//Se não achar, insere um novo
-	TCandidato c;
 	c.numeroCandidato = numero;
 	c.status.numeroVotos = 1;
 	c.status.vazio = false;
 
-	if (!insere_candidato(t, c))
-		return 0;
+	return insere_candidato(t, c);
 
-	return 1;
+	// if (!t)
+	// 	return 0;
+
+	// int posicao = f_hash(numero, t->tamanho), i = 0, incremento;
+
+	// while (i < t->tamanho)
+	// {
+
+	// 	incremento = f_hash_inc(numero, posicao, t->tamanho);
+
+	// 	//Se achar...
+	// 	if (t->elementos[posicao % t->tamanho].status.vazio == 0 &&
+	// 			numero == t->elementos[posicao % t->tamanho].numeroCandidato)
+	// 	{
+
+	// 		//Computa mais um voto
+	// 		t->elementos[posicao % t->tamanho].status.numeroVotos += 1;
+	// 		return t->elementos[posicao % t->tamanho].status.numeroVotos;
+	// 	}
+
+	// 	i++;
+	// 	posicao += incremento;
+	// }
+
+	// //Se não achar, insere um novo
+	// TCandidato c;
+	// c.numeroCandidato = numero;
+	// c.status.numeroVotos = 1;
+	// c.status.vazio = false;
+
+	// if (!insere_candidato(t, c))
+	// 	return 0;
+
+	// return 1;
 }
 
 int altera_candidato(HashCandidatos t, TCandidato c)
@@ -273,20 +303,28 @@ Ranking obter_ranking(HashCandidatos t, int tamanhoRanking)
 
 void print_ranking_str(HashCandidatos t, int tamanhoRanking)
 {
-	TCandidato ranking[tamanhoRanking];
+	TCandidato ranking[t->numElementos];
    
     int count = 0;
-    for(int i = 0; count<tamanhoRanking && i<t->tamanho; i++)
-        if(t->elementos[i].status.vazio == false) 
+    for(int i = 0; count<t->numElementos && i<t->tamanho; i++)
+        if(t->elementos[i].status.vazio == false)
             ranking[count++] = t->elementos[i];
     
-
     qsort(ranking, count, sizeof(TCandidato), comparador_ranking);
 
-	for(int i = 0; i < count; i++)
-		printf("\n%d %d votos", ranking[i].numeroCandidato, ranking[i].status.numeroVotos);
-   
+	if(tamanhoRanking > count)
+		tamanhoRanking = count;
 
+	for(int i = 0; i < tamanhoRanking; i++)
+		fprint_votos(ranking[i].numeroCandidato, ranking[i].status.numeroVotos);
+   
+	fprint("\n");
+	// int c = 0;
+	// for(int i = 0; i<t->tamanho; i++)
+    //     if(t->elementos[i].status.vazio == false)
+    //         c = c + t->elementos[i].status.numeroVotos;
+
+	// printf("\n->Total de votos: %d", c);
 }
 
 

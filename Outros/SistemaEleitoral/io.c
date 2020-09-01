@@ -6,6 +6,11 @@
 #include "io.h"
 #include "tabela_candidatos.h"
 
+static FILE* _def_output_file = NULL;
+static FILE* _def_input_file = NULL;
+
+int linhasLidas = 0;
+
 int lerInteiro(const char *txt)
 {
     printf("%s", txt);
@@ -77,12 +82,6 @@ bool remocao_invalida(int votosValidos)
     return false;
 }
 
-// void print_ranking(Ranking r){
-    
-//     printf("\n=== RANKING ===\n");
-//     for(int i = 0; i<r->numElementos; i++)
-//         printf("%d %d votos(s)\n", r->elementos[i].numeroCandidato, r->elementos[i].status.numeroVotos);
-// }
 
 void print_exec(int colisoes, long tempo){
     printf("\n\n=============\n");
@@ -90,17 +89,22 @@ void print_exec(int colisoes, long tempo){
     printf("\nTempo de Execução %lu ms:\n\n", tempo);
 }
 
-FILE* abrir_arquivo_leitura(const char * caminho){
-    return fopen(caminho, "r");
+bool abrir_arquivo_leitura(const char * caminho){
+    _def_input_file = fopen(caminho, "r");
+    return _def_input_file != NULL;
 }
 
-bool ler_linha(FILE *f, char * conteudoLido, int tamanhoLinha){
+bool ler_linha_arquivo(char * conteudoLido, int tamanhoLinha){
 
-    return fgets(conteudoLido, tamanhoLinha, f) != NULL;
+    bool status = fgets(conteudoLido, tamanhoLinha, _def_input_file) != NULL;
+    if(status) linhasLidas++;
+    return status;
 }
 
-int fechar_arquivo(FILE* f){
-    return fclose(f);
+bool fechar_arquivo_leitura(){
+    bool status = fclose(_def_input_file) != NULL;
+    _def_input_file = NULL;
+    return status;
 }
 
 bool checar_numero_primo(int numero){
@@ -109,11 +113,11 @@ bool checar_numero_primo(int numero){
 
         // condition for non-prime
         if (numero % i == 0) {
-            return true;
+            return false;
         }
     }
 
-    return false;
+    return true;
 }
 
 clock_t cronometrar(clock_t start){
@@ -129,4 +133,56 @@ clock_t cronometrar(clock_t start){
     
     return elapsed;
 
+}
+
+
+
+bool fvotoValido(int candidato, int votosCandidato){
+    
+    fprintf(_def_output_file, "\nvoto computado, candidato %d tem %d voto(s)\n", candidato, votosCandidato);
+    return true;
+}
+bool fvotoInvalido()
+{
+    fprintf(_def_output_file, "\nvoto não computado.\n");
+    return false;
+}
+
+bool fremocao_valida(int votosValidos)
+{
+    fprintf(_def_output_file, "\nmeliante removido, %d votos válidos no sistema.\n", votosValidos);
+    return true;
+}
+
+bool fremocao_invalida(int votosValidos)
+{
+    fprintf(_def_output_file, "\nmeliante não removido, %d votos válidos no sistema.\n", votosValidos);
+    return false;
+}
+
+void fprint_votos(int candidato, int votos){
+    fprintf(_def_output_file, "\n%d %d votos", candidato, votos);
+}
+
+void fprint(const char * text){
+    fprintf(_def_output_file,  "\n%s", text);
+}
+
+
+void fprint_exec(int colisoes, long tempo){
+    fprintf(_def_output_file, "\n\n=============\n");
+    fprintf(_def_output_file, "Número de Colisões: %d", colisoes);
+    fprintf(_def_output_file, "\nTempo de Execução %lu ms:\n\n", tempo);
+}
+
+
+bool abrir_arquivo_escrita(const char * caminho){
+    _def_output_file = fopen(caminho, "w+");
+    return _def_output_file != NULL;
+}
+
+bool fechar_arquivo_escrita(){
+    fclose(_def_output_file);
+    _def_output_file = NULL;
+    return true;
 }
