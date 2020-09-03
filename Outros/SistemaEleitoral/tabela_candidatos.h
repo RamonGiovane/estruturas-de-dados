@@ -21,7 +21,7 @@ int insere_candidato(HashCandidatos, TCandidato);
 int pesquisa_candidato(HashCandidatos, int, TCandidato*);
 int remove_candidato(HashCandidatos,int);
 int pesquisa_candidato(HashCandidatos, int, TCandidato*);
-int altera_candidato(HashCandidatos, TCandidato);
+
 void print_candidatos(HashCandidatos);
 void termina_hash_candidatos(HashCandidatos);
 int computa_candidato(HashCandidatos, int);

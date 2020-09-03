@@ -8,8 +8,6 @@
             "args": [
                 "-Wall",
                 "-g",
-                "g_mocks.h",
-                "g_mocks.c",
                 "cedula.h",
                 "cedula.c",
                 "candidato.h",

@@ -84,10 +84,13 @@ int remove_abp(Abp *raiz, TChave id, TElemento* e)
     if (tchcmp(id, (*raiz)->info.id) < 0)
         return remove_abp(&(*raiz)->esq, id, e);
 
+
     //Se nao caiu em nenhum dos ifs, achou-se o elemento a
     // ser removido
     Abp aux = *raiz; //aux esta apontando pra quem eu quero remover
 
+    *e = aux->info;
+    
     if ((*raiz)->dir == NULL) // se *raiz não tem filho direito
         *raiz = (*raiz)->esq;
 
@@ -103,14 +106,14 @@ int remove_abp(Abp *raiz, TChave id, TElemento* e)
 
             raiz = &(*raiz)->dir;
         }
-
+        
         aux->info = (*raiz)->info;
         aux = *raiz;
         *raiz = aux->esq;
     }
 
  
-    *e = aux->info;
+    
     free(aux);
     return 1;
 }

@@ -1,7 +1,12 @@
 {
     "files.associations": {
         "cstdio": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "*.tcc": "c",
+        "deque": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "vector": "c"
     },
     "cquery.cacheDirectory": "${workspaceFolder}/.vscode/cquery_cached_index/"
 }

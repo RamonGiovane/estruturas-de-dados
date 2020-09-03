@@ -39,10 +39,10 @@ unsigned int tch_hash(TChave ch, unsigned int m)
 unsigned int tch_hash_inc(TChave ch, int p, unsigned int m)
 {
     unsigned int i, soma = 0;
-   
+
     for (i = 0; ch.tituloEleitor[i] != '\0'; i++){
         soma += ch.tituloEleitor[i] * (i + 1);
     }
 
-    return (m - (soma * p % m) ) + 1;
+    return 11 - (soma % 11);
 }

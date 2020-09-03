@@ -52,6 +52,11 @@ void quebrarString(char *s, const char *delimitador, char *resultado[], int size
 
         token = strtok(NULL, delimitador);
     }
+
+    if(i > 0) 
+        for(int x = 0; resultado[i-1][x] != '\0'; x++)
+            if(resultado[i-1][x] == '\n')
+                resultado[i-1][x] = '\0';
 }
 
 bool invalido(const char *dado)
@@ -72,13 +77,13 @@ bool votoInvalido()
 
 bool remocao_valida(int votosValidos)
 {
-    printf("\nmeliante removido, %d votos válidos no sistema.\n", votosValidos);
+    printf("\nmeliante removido, %d voto(s) válido(s) no sistema.\n", votosValidos);
     return true;
 }
 
 bool remocao_invalida(int votosValidos)
 {
-    printf("\nmeliante não removido, %d votos válidos no sistema.\n", votosValidos);
+    printf("\nmeliante não removido, %d voto(s) válido(s) no sistema.\n", votosValidos);
     return false;
 }
 
@@ -86,7 +91,7 @@ bool remocao_invalida(int votosValidos)
 void print_exec(int colisoes, long tempo){
     printf("\n\n=============\n");
     printf("Número de Colisões: %d", colisoes);
-    printf("\nTempo de Execução %lu ms:\n\n", tempo);
+    printf("\nTempo de Execução %lu ms\n\n", tempo);
 }
 
 bool abrir_arquivo_leitura(const char * caminho){
@@ -102,13 +107,13 @@ bool ler_linha_arquivo(char * conteudoLido, int tamanhoLinha){
 }
 
 bool fechar_arquivo_leitura(){
-    bool status = fclose(_def_input_file) != NULL;
+    bool status = fclose(_def_input_file) != 0;
     _def_input_file = NULL;
     return status;
 }
 
 bool checar_numero_primo(int numero){
-    
+
     for (int i = 2; i <= numero / 2; i++) {
 
         // condition for non-prime
@@ -121,16 +126,16 @@ bool checar_numero_primo(int numero){
 }
 
 clock_t cronometrar(clock_t start){
-   
-    
+
+
     if(start == 0){
        return clock();
     }
-   
+
     clock_t t2 = clock();
     clock_t elapsed;
     elapsed = ((double)t2 - start) / CLOCKS_PER_SEC * 1000;
-    
+
     return elapsed;
 
 }
@@ -138,30 +143,30 @@ clock_t cronometrar(clock_t start){
 
 
 bool fvotoValido(int candidato, int votosCandidato){
-    
-    fprintf(_def_output_file, "\nvoto computado, candidato %d tem %d voto(s)\n", candidato, votosCandidato);
+
+    fprintf(_def_output_file, "voto computado, candidato %d tem %d voto(s)\n", candidato, votosCandidato);
     return true;
 }
 bool fvotoInvalido()
 {
-    fprintf(_def_output_file, "\nvoto não computado.\n");
+    fprintf(_def_output_file, "voto não computado.\n");
     return false;
 }
 
 bool fremocao_valida(int votosValidos)
 {
-    fprintf(_def_output_file, "\nmeliante removido, %d votos válidos no sistema.\n", votosValidos);
+    fprintf(_def_output_file, "meliante removido, %d voto(s) válido(s) no sistema.\n", votosValidos);
     return true;
 }
 
 bool fremocao_invalida(int votosValidos)
 {
-    fprintf(_def_output_file, "\nmeliante não removido, %d votos válidos no sistema.\n", votosValidos);
+    fprintf(_def_output_file, "meliante não removido, %d voto(s) válido(s) no sistema.\n", votosValidos);
     return false;
 }
 
 void fprint_votos(int candidato, int votos){
-    fprintf(_def_output_file, "\n%d %d votos", candidato, votos);
+    fprintf(_def_output_file, "%d %d voto(s)\n", candidato, votos);
 }
 
 void fprint(const char * text){
@@ -170,9 +175,8 @@ void fprint(const char * text){
 
 
 void fprint_exec(int colisoes, long tempo){
-    fprintf(_def_output_file, "\n\n=============\n");
-    fprintf(_def_output_file, "Número de Colisões: %d", colisoes);
-    fprintf(_def_output_file, "\nTempo de Execução %lu ms:\n\n", tempo);
+    fprintf(_def_output_file, "\nNúmero de Colisões: %d", colisoes);
+    fprintf(_def_output_file, "\nTempo de Execução %lu ms\n\n", tempo);
 }
 
 

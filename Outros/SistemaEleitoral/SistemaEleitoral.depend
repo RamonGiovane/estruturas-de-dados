@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1598833919 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\abp.c
+1599102922 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\abp.c
 	<stdio.h>
 	<stdlib.h>
 	"cedula.h"
@@ -13,7 +13,7 @@
 	<stdio.h>
 	<stdbool.h>
 
-1598899513 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_lista.c
+1599095346 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_lista.c
 	<stdlib.h>
 	<stdio.h>
 	"abp.h"
@@ -27,7 +27,7 @@
 1598832661 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_lista.h
 	"lista.h"
 
-1598844910 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\lista.c
+1599093251 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\lista.c
 	<stdio.h>
 	<stdlib.h>
 	"cedula.h"
@@ -43,26 +43,26 @@
 1598832615 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_abp.h
 	"abp.h"
 
-1598917714 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_duplo.c
+1599109187 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_duplo.c
 	<stdio.h>
 	<stdlib.h>
 	"cedula.h"
 	"hash_duplo.h"
 	<string.h>
+	<math.h>
 
 1598832669 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_duplo.h
 	"cedula.h"
 
-1598914195 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\main.c
+1599109455 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\main.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
 	<stdbool.h>
 	"sistema_eleitoral.h"
 	<time.h>
-	"g_mocks.h"
 
-1598919806 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\cedula.c
+1598971724 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\cedula.c
 	<string.h>
 	<stdio.h>
 	<stdbool.h>
@@ -78,7 +78,7 @@
 1598832194 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_candidatos.h
 	<stdbool.h>
 
-1598925235 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\io.c
+1599092819 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\io.c
 	<stdbool.h>
 	<stdlib.h>
 	<stdio.h>
@@ -87,7 +87,7 @@
 	"io.h"
 	"tabela_candidatos.h"
 
-1598910402 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\io.h
+1598935598 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\io.h
 	<stdbool.h>
 	<time.h>
 	"tabela_candidatos.h"
@@ -104,7 +104,7 @@
 	"tabela_candidatos.h"
 	"io.h"
 
-1598898738 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\tabela_candidatos.h
+1598975793 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\tabela_candidatos.h
 	<stdbool.h>
 	"abp.h"
 	"candidato.h"
@@ -112,16 +112,15 @@
 1598840722 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\candidato.h
 	<stdbool.h>
 
-1598925191 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\sistema_eleitoral.c
+1599109653 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\sistema_eleitoral.c
 	<stdlib.h>
 	<stdbool.h>
 	<stdio.h>
 	"sistema_eleitoral.h"
 	"io.h"
 	"tabela_candidatos.h"
-	"g_mocks.h"
 
-1598925735 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\tabela_candidatos.c
+1599109642 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\tabela_candidatos.c
 	"tabela_candidatos.h"
 	"abp.h"
 	"io.h"
@@ -129,6 +128,7 @@
 	<stdlib.h>
 	<string.h>
 	<stdbool.h>
+	<math.h>
 
 1598903987 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\g_mocks.h
 
