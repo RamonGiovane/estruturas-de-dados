@@ -8,21 +8,21 @@ int lerInteiro(const char *txt);
 void lerString(const char *txt, char *retorno, int tamanho);
 void quebrarString(char *s, const char *delimitador, char *resultado[], int size_resultado);
 
+//Prints no console
 bool invalido(const char *dado);
 bool votoValido(int candidato, int votosCandidato);
 bool votoInvalido(void);
 bool remocao_valida(int votosValidos);
 bool remocao_invalida(int votosValidos);
-void print_ranking(Ranking);
 void print_exec(int, long);
+
+//Prints no arquivo de saida
 void fprint_votos(int candidato, int votos);
 void fprint(const char*);
-
 bool fvotoValido(int candidato, int votosCandidato);
 bool fvotoInvalido(void);
 bool fremocao_valida(int votosValidos);
 bool fremocao_invalida(int votosValidos);
-void fprint_ranking(Ranking);
 void fprint_exec(int, long);
 
 clock_t cronometrar(clock_t start);

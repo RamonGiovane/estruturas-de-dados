@@ -5,6 +5,45 @@
 #include "io.h"
 #include "tabela_candidatos.h"
 
+
+
+int comparador_ranking(const void *v1, const void *v2)
+{
+
+	const TCandidato *e1 = (TCandidato *)v1;
+	const TCandidato *e2 = (TCandidato *)v2;
+
+	if (e1->status.numeroVotos > e2->status.numeroVotos)
+		return -1;
+	if (e1->status.numeroVotos < e2->status.numeroVotos)
+		return 1;
+
+	return e1->numeroCandidato - e2->numeroCandidato;
+}
+
+
+void print_ranking_str(HashCandidatos t, int tamanhoRanking)
+{
+	TCandidato ranking[t->numElementos];
+
+	int count = 0;
+	for (int i = 0; count < t->numElementos && i < t->tamanho; i++)
+		if (t->elementos[i].status.vazio == false){
+
+			ranking[count++] = t->elementos[i];
+		}
+
+	qsort(ranking, count, sizeof(TCandidato), comparador_ranking);
+
+	if (tamanhoRanking > count)
+		tamanhoRanking = count;
+
+	for (int i = 0; i < tamanhoRanking; i++)
+		fprint_votos(ranking[i].numeroCandidato, ranking[i].status.numeroVotos);
+
+}
+
+
 int obter_colisoes(Estruturas *est)
 {
     if (est->tipo_estrutura == HASH_LISTA)

@@ -47,7 +47,7 @@ int transforma_chave(TChave ch)
   int i, soma = 0;
   for (i = 0; ch.tituloEleitor[i] != '\0'; i++)
   {
-    soma += ch.tituloEleitor[i] * (i + 1);
+    soma += ch.tituloEleitor[i] * (i + 1000);
   }
   return abs(soma);
 }
@@ -98,7 +98,7 @@ int pesquisa_hash_duplo(HashDuplo t, TChave ch, TElemento *e)
   int index = hash;
   int count = 0;
 
-  if(t->numElementos == 0) return -1;
+  if(!t || t->numElementos == 0) return -1;
 
   while(true) 
   {
@@ -127,28 +127,37 @@ int pesquisa_hash_duplo(HashDuplo t, TChave ch, TElemento *e)
 int altera_hash_duplo(HashDuplo t, TElemento e)
 {
 
+  int size = t->tamanho;
+  int key = transforma_chave(e.id);
+  int hash = hash1(key, size);
+  int inc = hash2(key);
+
+  int index = hash;
+  int count = 0;
+
   if (!t || t->numElementos == 0)
     return 0;
 
-  int posicao = tch_hash(e.id, t->tamanho);
-  int i = 0, incremento;
+ 
 
-  while (i < t->tamanho)
+  while (true)
   {
 
-    incremento = tch_hash_inc(e.id, posicao, t->tamanho);
+    if (tchcmp(t->elementos[index].id, e.id) == 0){
+      
+      if(t->elementos[index].status.vazio == true) //Se esse elemento foi removido anteriormente
+        return 0;
 
-    if (t->elementos[posicao % t->tamanho].status.vazio == 0 &&
-        tchcmp(e.id, t->elementos[posicao % t->tamanho].id) == 0)
-    {
-
-      t->elementos[posicao % t->tamanho] = e;
+      t->elementos[index] = e;
 
       return 1;
     }
+    
+    index = (index + inc) % size;
+    count++;
 
-    i++;
-    posicao += incremento;
+    if(index == hash)
+      break;
   }
 
   return 0;

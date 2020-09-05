@@ -31,7 +31,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="DoubleHashOutput (1).txt" />
 		<Unit filename="abp.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -53,8 +52,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="hash_lista.h" />
-		<Unit filename="input.txt" />
-		<Unit filename="input3.txt" />
 		<Unit filename="io.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -66,11 +63,6 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="output-lista.txt" />
-		<Unit filename="output.txt" />
-		<Unit filename="output1-abp.txt" />
-		<Unit filename="output1-duplo.txt" />
-		<Unit filename="outputm.txt" />
 		<Unit filename="sistema_eleitoral.c">
 			<Option compilerVar="CC" />
 		</Unit>

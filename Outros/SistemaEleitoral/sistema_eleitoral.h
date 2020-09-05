@@ -11,16 +11,8 @@
 #include "hash_duplo.h"
 #include "tabela_candidatos.h"
 #include "io.h"
-#define STD_BUF 100
 
-enum Acao
-{
-    VOTAR = 0,
-    REMOVER = 1,
-    APURAR = 2,
-    ENCERRAR = 3,
-    INVALIDO = -1
-};
+
 
 enum TipoEstrutura
 {

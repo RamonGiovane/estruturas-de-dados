@@ -13,8 +13,6 @@ typedef struct{
 
 typedef t_hash_candidatos *HashCandidatos;
 
-typedef t_hash_candidatos *Ranking;
-
 
 HashCandidatos cria_hash_candidatos(unsigned int);
 int insere_candidato(HashCandidatos, TCandidato);
@@ -27,7 +25,4 @@ void termina_hash_candidatos(HashCandidatos);
 int computa_candidato(HashCandidatos, int);
 int decrementa_candidato(HashCandidatos, int);
 
-Ranking obter_ranking(HashCandidatos, int);
-void print_ranking_str(HashCandidatos, int);
-void termina_ranking(Ranking);
 #endif // HASH_CANDIDATOS_H_INCLUDED

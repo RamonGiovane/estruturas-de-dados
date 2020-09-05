@@ -7,20 +7,7 @@
 #include <stdbool.h>
 #include <math.h>
 
-#define PRIME 7
-
-//Função Hash A: Gera um valor hash a partir de um int
-unsigned int f_hash(int ch, unsigned int m)
-{
-
-	return ch % m;
-}
-
-//Funcão Hash B: Gera uma valor hash de incremento a partir de um int
-unsigned int f_hash_inc(int ch, int p, unsigned int m)
-{
-	return (m - (p * ch % m));
-}
+#define PRIME 101
 
 HashCandidatos cria_hash_candidatos(unsigned int n)
 {
@@ -45,13 +32,12 @@ HashCandidatos cria_hash_candidatos(unsigned int n)
 	return t;
 }
 
-// function to calculate first hash
-int Chash1(int key, int tamanho_tabela)
+int f_hash1(int key, int tamanho_tabela)
 {
 	return abs(key % tamanho_tabela);
 }
 
-int Chash2(int key)
+int f_hash2(int key)
 {
 	return (PRIME - (key % PRIME));
 }
@@ -60,12 +46,8 @@ int Chash2(int key)
 int insert(HashCandidatos t, int key, int incrementoVoto)
 {
 
-	// // if hash table is full
-	// if (t->numElementos == t->tamanho)
-	// 	return 0;
-
-	int hash = Chash1(key, t->tamanho);
-	int inc = Chash2(key);
+	int hash = f_hash1(key, t->tamanho);
+	int inc = f_hash2(key);
 	int index = hash;
 	int comps = 0;
 
@@ -102,8 +84,8 @@ int insert(HashCandidatos t, int key, int incrementoVoto)
 int search(HashCandidatos t, int key, TCandidato *c)
 {
 	int size = t->tamanho;
-	int hash = Chash1(key, size);
-	int inc = Chash2(key);
+	int hash = f_hash1(key, size);
+	int inc = f_hash2(key);
 
 	int index = hash;
 
@@ -189,62 +171,3 @@ void print_candidatos(HashCandidatos t)
 	}
 }
 
-int comparador_ranking(const void *v1, const void *v2)
-{
-
-	const TCandidato *e1 = (TCandidato *)v1;
-	const TCandidato *e2 = (TCandidato *)v2;
-
-	if (e1->status.numeroVotos > e2->status.numeroVotos)
-		return -1;
-	if (e1->status.numeroVotos < e2->status.numeroVotos)
-		return 1;
-
-	return e1->numeroCandidato - e2->numeroCandidato;
-}
-
-Ranking obter_ranking(HashCandidatos t, int tamanhoRanking)
-{
-	TCandidato *ranking = (TCandidato *)malloc(sizeof(TCandidato) * tamanhoRanking);
-
-	int count = 0;
-	for (int i = 0; count < tamanhoRanking && i < t->tamanho; i++)
-		if (t->elementos[i].status.vazio == false)
-			ranking[count++] = t->elementos[i];
-
-	qsort(ranking, count, sizeof(TCandidato), comparador_ranking);
-
-	Ranking r = (Ranking)malloc(sizeof(t_hash_candidatos));
-
-	r->elementos = ranking;
-	r->numElementos = count;
-	r->tamanho = tamanhoRanking;
-
-	return r;
-}
-
-void print_ranking_str(HashCandidatos t, int tamanhoRanking)
-{
-	TCandidato ranking[t->numElementos];
-
-	int count = 0;
-	for (int i = 0; count < t->numElementos && i < t->tamanho; i++)
-		if (t->elementos[i].status.vazio == false){
-
-			ranking[count++] = t->elementos[i];
-		}
-
-	qsort(ranking, count, sizeof(TCandidato), comparador_ranking);
-
-	if (tamanhoRanking > count)
-		tamanhoRanking = count;
-
-	for (int i = 0; i < tamanhoRanking; i++)
-		fprint_votos(ranking[i].numeroCandidato, ranking[i].status.numeroVotos);
-
-}
-
-void termina_ranking(Ranking r)
-{
-	termina_hash_candidatos(r);
-}
