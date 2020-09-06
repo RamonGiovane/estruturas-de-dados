@@ -31,6 +31,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="SistemaEleitoral.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="abp.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -40,6 +43,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="cedula.h" />
+		<Unit filename="condicao.h" />
 		<Unit filename="hash_abp.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -60,9 +64,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="lista.h" />
-		<Unit filename="main.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="sistema_eleitoral.c">
 			<Option compilerVar="CC" />
 		</Unit>

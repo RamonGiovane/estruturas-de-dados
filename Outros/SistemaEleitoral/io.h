@@ -14,7 +14,7 @@ bool votoValido(int candidato, int votosCandidato);
 bool votoInvalido(void);
 bool remocao_valida(int votosValidos);
 bool remocao_invalida(int votosValidos);
-void print_exec(int, long);
+void print_exec(int, int, int, long);
 
 //Prints no arquivo de saida
 void fprint_votos(int candidato, int votos);
@@ -23,7 +23,7 @@ bool fvotoValido(int candidato, int votosCandidato);
 bool fvotoInvalido(void);
 bool fremocao_valida(int votosValidos);
 bool fremocao_invalida(int votosValidos);
-void fprint_exec(int, long);
+void fprint_exec(int, int, int, long);
 
 clock_t cronometrar(clock_t start);
 

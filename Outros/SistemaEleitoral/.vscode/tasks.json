@@ -8,6 +8,7 @@
             "args": [
                 "-Wall",
                 "-g",
+                "condicao.h",
                 "cedula.h",
                 "cedula.c",
                 "candidato.h",
@@ -27,9 +28,9 @@
                 "io.c",
                 "sistema_eleitoral.h",
                 "sistema_eleitoral.c",
-                "main.c",
+                "SistemaEleitoral.c",
                 "-o",
-                "main.exe"
+                "SistemaEleitoral.exe"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

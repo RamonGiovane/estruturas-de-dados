@@ -1,137 +1,129 @@
 # depslib dependency file v1.0
-1599102922 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\abp.c
+1599379323 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\abp.c
+	"abp.h"
 	<stdio.h>
 	<stdlib.h>
 	"cedula.h"
-	"abp.h"
 
-1598832704 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\abp.h
+1599379323 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\abp.h
 	"cedula.h"
 
-1598917619 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\cedula.h
-	<string.h>
-	<stdio.h>
+1599379580 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\cedula.h
 	<stdbool.h>
-
-1599095346 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_lista.c
-	<stdlib.h>
 	<stdio.h>
-	"abp.h"
+	<string.h>
+	"condicao.h"
+
+1599379115 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\condicao.h
+
+1599379609 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\cedula.c
 	"cedula.h"
-	"lista.h"
-	"hash_lista.h"
-
-1598833006 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\lista.h
-	"cedula.h"
-
-1598832661 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_lista.h
-	"lista.h"
-
-1599093251 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\lista.c
+	<stdbool.h>
 	<stdio.h>
-	<stdlib.h>
-	"cedula.h"
-	"lista.h"
+	<string.h>
 
-1598899513 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_abp.c
-	<stdlib.h>
-	<stdio.h>
-	"abp.h"
-	"cedula.h"
+1599379124 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_abp.c
 	"hash_abp.h"
-
-1598832615 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_abp.h
+	<stdio.h>
+	<stdlib.h>
 	"abp.h"
-
-1599109187 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_duplo.c
-	<stdio.h>
-	<stdlib.h>
 	"cedula.h"
-	"hash_duplo.h"
-	<string.h>
-	<math.h>
-
-1598832669 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_duplo.h
-	"cedula.h"
-
-1599109455 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\main.c
-	<stdio.h>
-	<stdlib.h>
-	<locale.h>
-	<stdbool.h>
-	"sistema_eleitoral.h"
-	<time.h>
-
-1598971724 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\cedula.c
-	<string.h>
-	<stdio.h>
-	<stdbool.h>
-	"cedula.h"
-
-1598832160 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_candidatos.c
-	"hash_candidatos.h"
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<stdbool.h>
-
-1598832194 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_candidatos.h
-	<stdbool.h>
-
-1599092819 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\io.c
-	<stdbool.h>
-	<stdlib.h>
-	<stdio.h>
-	<string.h>
-	<time.h>
-	"io.h"
-	"tabela_candidatos.h"
-
-1598935598 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\io.h
-	<stdbool.h>
-	<time.h>
-	"tabela_candidatos.h"
-
-1598891040 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\sistema_eleitoral.h
-	<stdio.h>
-	<stdlib.h>
-	<locale.h>
-	<stdbool.h>
-	"cedula.h"
-	"hash_abp.h"
-	"hash_lista.h"
-	"hash_duplo.h"
-	"tabela_candidatos.h"
 	"io.h"
 
-1598975793 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\tabela_candidatos.h
+1599379135 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_abp.h
+	"abp.h"
+
+1599380309 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\io.h
+	<stdbool.h>
+	<time.h>
+	"tabela_candidatos.h"
+
+1599379310 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\tabela_candidatos.h
 	<stdbool.h>
 	"abp.h"
 	"candidato.h"
 
-1598840722 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\candidato.h
+1599377086 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\candidato.h
 	<stdbool.h>
+	"condicao.h"
 
-1599109653 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\sistema_eleitoral.c
-	<stdlib.h>
-	<stdbool.h>
-	<stdio.h>
-	"sistema_eleitoral.h"
-	"io.h"
-	"tabela_candidatos.h"
-
-1599109642 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\tabela_candidatos.c
-	"tabela_candidatos.h"
-	"abp.h"
-	"io.h"
+1599379506 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_duplo.c
+	<math.h>
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	"hash_duplo.h"
+	"cedula.h"
+	"io.h"
+
+1599379155 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_duplo.h
+	"cedula.h"
+
+1599379164 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_lista.c
+	"hash_lista.h"
+	<stdio.h>
+	<stdlib.h>
+	"abp.h"
+	"cedula.h"
+	"io.h"
+	"lista.h"
+
+1599379182 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\hash_lista.h
+	"lista.h"
+
+1599379246 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\lista.h
+	"cedula.h"
+
+1599380497 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\io.c
 	<stdbool.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<time.h>
+	"io.h"
+	"tabela_candidatos.h"
+
+1599379202 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\lista.c
+	"lista.h"
+	<stdio.h>
+	<stdlib.h>
+	"cedula.h"
+
+1599379278 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\sistema_eleitoral.c
+	<stdbool.h>
+	<stdio.h>
+	<stdlib.h>
+	"io.h"
+	"tabela_candidatos.h"
+	"sistema_eleitoral.h"
+
+1599379285 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\sistema_eleitoral.h
+	<locale.h>
+	<stdbool.h>
+	<stdio.h>
+	<stdlib.h>
+	"cedula.h"
+	"hash_abp.h"
+	"hash_duplo.h"
+	"hash_lista.h"
+	"io.h"
+	"tabela_candidatos.h"
+
+1599380497 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\sistemaeleitoral.c
+	<locale.h>
+	<stdbool.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"sistema_eleitoral.h"
+
+1599379305 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\tabela_candidatos.c
 	<math.h>
-
-1598903987 c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\g_mocks.h
-
-1598904101 source:c:\users\t.i\desktop\ramon\ed2\outros\sistemaeleitoral\g_mocks.c
-	"g_mocks.h"
+	<stdbool.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"abp.h"
+	"io.h"
+	"tabela_candidatos.h"
 

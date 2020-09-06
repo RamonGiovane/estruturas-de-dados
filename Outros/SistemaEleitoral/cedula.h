@@ -1,35 +1,31 @@
 #ifndef CEDULA_H_INCLUDED
 #define CEDULA_H_INCLUDED
 #define TITULO_ELEITOR 8
-#include <string.h>
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
 
-#define TSTATUS_INIT {false, false}
+#include "condicao.h"
 
- enum Condicao { VAZIO = 1, CHEIO = 2, DELETADO = 3};
+#define TSTATUS_INIT { false, false }
 
-typedef struct TChave
-{
+typedef struct TChave {
     char tituloEleitor[TITULO_ELEITOR];
 
 } TChave;
 
-typedef struct TStatusVotos
-{
+typedef struct TStatusVotos {
     bool votouPrefeito;
     bool votouVereador;
 
-}TStatusVotos;
+} TStatusVotos;
 
-
-typedef struct
-{
+typedef struct {
     int prefeito;
     int vereador;
     TChave id;
     TStatusVotos statusVotos;
-    int condicao;
+    TCondicao condicao;
 
 } TElemento;
 
@@ -42,9 +38,10 @@ void print_tch(TChave ch);
 
 void print_elemento(TElemento e);
 
-//Função Hash A: Gera um valor hash a partir de TChave
+// Função Hash A: Gera um valor hash a partir de TChave
 unsigned int tch_hash(TChave ch, unsigned int m);
-//Funcão Hash B: Gera uma valor hash a partir de TChave
-unsigned int tch_hash_inc(TChave ch, int p, unsigned int m);
 
-#endif // CEDULA_H_INCLUDED
+unsigned int transforma_chave(TChave ch);
+
+
+#endif  // CEDULA_H_INCLUDED

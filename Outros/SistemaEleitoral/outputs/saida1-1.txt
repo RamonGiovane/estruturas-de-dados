@@ -19438,5 +19438,5 @@ voto não computado.
 3
 
 Número de Colisões: 884
-Tempo de Execução: 22 ms
+Tempo de Execução: 17 ms
 
