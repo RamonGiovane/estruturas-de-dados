@@ -9,6 +9,9 @@ typedef struct{
   TCandidato* elementos;
   int tamanho;
   int numElementos;
+  int numColisoes;
+
+  int np; //numero primo mais proximo e menor que tamanho
 }t_hash_candidatos;
 
 typedef t_hash_candidatos *HashCandidatos;

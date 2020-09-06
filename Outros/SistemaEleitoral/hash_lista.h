@@ -12,6 +12,8 @@ typedef struct
 
     int numColisoes;
 
+    int np; //numero primo mais proximo e menor que tamanho
+
 }t_hash_lista;
 
 typedef t_hash_lista* HashLista;

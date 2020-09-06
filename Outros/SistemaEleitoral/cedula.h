@@ -5,7 +5,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define TSTATUS_INIT {false, false, false}
+#define TSTATUS_INIT {false, false}
+
+ enum Condicao { VAZIO = 1, CHEIO = 2, DELETADO = 3};
 
 typedef struct TChave
 {
@@ -13,12 +15,12 @@ typedef struct TChave
 
 } TChave;
 
-typedef struct TStatus
+typedef struct TStatusVotos
 {
-    bool vazio;
     bool votouPrefeito;
     bool votouVereador;
-}TStatus;
+
+}TStatusVotos;
 
 
 typedef struct
@@ -26,7 +28,8 @@ typedef struct
     int prefeito;
     int vereador;
     TChave id;
-    TStatus status;
+    TStatusVotos statusVotos;
+    int condicao;
 
 } TElemento;
 

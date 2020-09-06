@@ -3,6 +3,7 @@
 #include "abp.h"
 #include "cedula.h"
 #include "lista.h"
+#include "io.h"
 #include "hash_lista.h"
 
 
@@ -21,6 +22,10 @@ HashLista cria_hash_lista(int tamanho)
         thash->elementos[i] = cria_lista();
     }
 
+
+    thash->np = tamanho;
+    while(!checar_numero_primo(thash->np) && thash->np-1 > 1) thash->np--; 
+    
     return thash;
 }
 
@@ -33,11 +38,11 @@ int insere_hash_lista(HashLista th, TElemento e)
     if(th->elementos[indice]->n > 0)
         th->numColisoes += 1;
 
-    int status = insere_apos(th->elementos[indice], e);
+    int statusVotos = insere_apos(th->elementos[indice], e);
     
-    if(status) th->n += 1;
+    if(statusVotos) th->n += 1;
 
-    return status;
+    return statusVotos;
 
 }
 
@@ -73,11 +78,11 @@ int remove_hash_lista(HashLista th, TChave ch, TElemento* e)
 {
     int indice = tch_hash(ch, th->tam);
 
-    int status = remove_elemento(th->elementos[indice], ch, e);
+    int statusVotos = remove_elemento(th->elementos[indice], ch, e);
 
-    if(status) th->n -= 1;
+    if(statusVotos) th->n -= 1;
 
-    return status;
+    return statusVotos;
 
 }
 

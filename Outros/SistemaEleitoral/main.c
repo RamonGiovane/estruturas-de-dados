@@ -147,6 +147,7 @@ int entrada_de_dados(int argc, char *argv[])
     //Para o cronometro
     tempo = cronometrar(tempo);
 
+    printf("Numero colisoes vereador: %d\nNumero colisoes prefeito: %d\n", est->hashVereadores->numColisoes, est->hashPrefeitos->numColisoes);
     //Printa resumo
     print_exec(obter_colisoes(est), tempo);
     fprint_exec(obter_colisoes(est), tempo);
@@ -154,6 +155,7 @@ int entrada_de_dados(int argc, char *argv[])
     //Encerra as estruturas
     encerrar(est);
 
+    
     return fechar_arquivos();
 }
 

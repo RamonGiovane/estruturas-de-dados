@@ -7,7 +7,7 @@
 #include <stdbool.h>
 #include <math.h>
 
-#define PRIME 101
+#define PRIME 7
 
 HashCandidatos cria_hash_candidatos(unsigned int n)
 {
@@ -29,6 +29,10 @@ HashCandidatos cria_hash_candidatos(unsigned int n)
 			free(t);
 		}
 	}
+
+	t->np = n;
+  	while(!checar_numero_primo(t->np) && t->np-1 > 1) t->np--; 
+
 	return t;
 }
 
@@ -49,35 +53,40 @@ int insert(HashCandidatos t, int key, int incrementoVoto)
 	int hash = f_hash1(key, t->tamanho);
 	int inc = f_hash2(key);
 	int index = hash;
-	int comps = 0;
+	int comps = 1;
 
-	while (t->elementos[index].status.vazio == false) {
-		
+	while (t->elementos[index].status.vazio == false)
+	{
+
 		//Se ja existe
-		if (t->elementos[index].numeroCandidato == key){
-			
-			t->elementos[index].status.numeroVotos += incrementoVoto;			
-			return t->elementos[index].status.numeroVotos;
+		if (t->elementos[index].numeroCandidato == key)
+		{
+
+			t->elementos[index].numeroVotos += incrementoVoto;
+			return t->elementos[index].numeroVotos;
 		}
 
-		index = (index + inc) % t->tamanho;
+		t->numColisoes++;
+		index = (hash + comps * inc) % t->tamanho;
 
 		//if(index == hash) return 0;
-		if(comps++ == t->tamanho) return 0;
+		if (comps++ == t->tamanho)
+			return 0;
 	}
 
-	if(incrementoVoto == 1){
+	if (incrementoVoto == 1)
+	{
 		TCandidato c;
 		c.numeroCandidato = key;
-		c.status.numeroVotos = 1;
+		c.numeroVotos = 1;
 		c.status.vazio = false;
-		
+
 		t->elementos[index] = c;
-		
+
 		t->numElementos++;
 	}
 
-	return 1;
+	return t->elementos[index].numeroVotos;
 }
 
 // function to search key in hash table
@@ -86,7 +95,7 @@ int search(HashCandidatos t, int key, TCandidato *c)
 	int size = t->tamanho;
 	int hash = f_hash1(key, size);
 	int inc = f_hash2(key);
-
+	int comps = 1;
 	int index = hash;
 
 	if (t->numElementos == 0)
@@ -95,15 +104,15 @@ int search(HashCandidatos t, int key, TCandidato *c)
 	while (!t->elementos[index].status.vazio)
 	{
 
-		if (t->elementos[index].numeroCandidato == c->numeroCandidato)
+		if (t->elementos[index].numeroCandidato == key)
 		{
 			*c = t->elementos[index];
 			return index;
 		}
 
-		index = (index + inc) % size;
+		index = (hash + comps * inc) % size;
 
-		if (index == hash)
+		if (comps++ > size)
 			break;
 	}
 
@@ -125,9 +134,8 @@ int pesquisa_candidato(HashCandidatos t, int num, TCandidato *c)
 /*Adiciona -1 voto ao candidato indicado por seu <numero>. Se ele ainda não existir na tabela, retorna-se 0.*/
 int decrementa_candidato(HashCandidatos t, int numero)
 {
-	
+
 	return insert(t, numero, -1);
-	
 }
 
 /*Adiciona +1 voto ao candidato indicado por seu <numero>. Se ele ainda não existir na tabela, será inserido.
@@ -170,4 +178,3 @@ void print_candidatos(HashCandidatos t)
 			printf("%d ", t->elementos[i].numeroCandidato);
 	}
 }
-

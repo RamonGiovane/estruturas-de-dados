@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "abp.h"
+#include "io.h"
 #include "cedula.h"
 #include "hash_abp.h"
 
@@ -20,6 +21,9 @@ HashAbp cria_hash_abp(int tamanho){
         thash->elementos[i] = cria_abp();
     }
 
+    thash->np = tamanho;
+    while(!checar_numero_primo(thash->np) && thash->np-1 > 0) thash->np--; 
+
     return thash;
 
 }
@@ -32,11 +36,11 @@ int insere_hash_abp(HashAbp th, TElemento e){
     if(th->elementos[indice] != NULL)
         th->numColisoes += 1;
 
-    int status = insere_abp(&th->elementos[indice], e);
+    int statusVotos = insere_abp(&th->elementos[indice], e);
 
-    if(status) th->n += 1;
+    if(statusVotos) th->n += 1;
 
-    return status;
+    return statusVotos;
 
 }
 
@@ -72,11 +76,11 @@ int pesquisa_hash_abp (HashAbp th,  TChave ch,  TElemento *e){
 int remove_hash_abp(HashAbp th, TChave ch, TElemento* e){
     int indice = tch_hash(ch, th->tam);
 
-    int status = remove_abp(&(th)->elementos[indice], ch, e);
+    int statusVotos = remove_abp(&(th)->elementos[indice], ch, e);
 
-    if(status) th->n -= 1;
+    if(statusVotos) th->n -= 1;
 
-    return status;
+    return statusVotos;
 
 }
 

@@ -13,9 +13,9 @@ int comparador_ranking(const void *v1, const void *v2)
 	const TCandidato *e1 = (TCandidato *)v1;
 	const TCandidato *e2 = (TCandidato *)v2;
 
-	if (e1->status.numeroVotos > e2->status.numeroVotos)
+	if (e1->numeroVotos > e2->numeroVotos)
 		return -1;
-	if (e1->status.numeroVotos < e2->status.numeroVotos)
+	if (e1->numeroVotos < e2->numeroVotos)
 		return 1;
 
 	return e1->numeroCandidato - e2->numeroCandidato;
@@ -39,7 +39,7 @@ void print_ranking_str(HashCandidatos t, int tamanhoRanking)
 		tamanhoRanking = count;
 
 	for (int i = 0; i < tamanhoRanking; i++)
-		fprint_votos(ranking[i].numeroCandidato, ranking[i].status.numeroVotos);
+		fprint_votos(ranking[i].numeroCandidato, ranking[i].numeroVotos);
 
 }
 
@@ -82,12 +82,12 @@ int registrar_escolha(Estruturas *est, int classe, int numeroCandidato, TElement
 
     if (classe == PREFEITO)
     {
-        if (voto->status.votouPrefeito)
+        if (voto->statusVotos.votouPrefeito)
             return 0;
         else
         {
             voto->prefeito = numeroCandidato;
-            voto->status.votouPrefeito = 1;
+            voto->statusVotos.votouPrefeito = 1;
 
             status = computa_candidato(est->hashPrefeitos, numeroCandidato);
 
@@ -96,12 +96,12 @@ int registrar_escolha(Estruturas *est, int classe, int numeroCandidato, TElement
     }
     else
     {
-        if (voto->status.votouVereador)
+        if (voto->statusVotos.votouVereador)
             return 0;
         else
         {
             voto->vereador = numeroCandidato;
-            voto->status.votouVereador = 1;
+            voto->statusVotos.votouVereador = 1;
             status = computa_candidato(est->hashVereadores, numeroCandidato);
 
             return status;
@@ -176,7 +176,7 @@ bool votar(Estruturas *est, char *parametros[4])
 
 
     int classe, candidato;
-    TStatus def = TSTATUS_INIT;
+    TStatusVotos def = TSTATUS_INIT;
 
     //Checar parametros
     if (!checar_voto(parametros, &classe, &candidato))
@@ -188,10 +188,8 @@ bool votar(Estruturas *est, char *parametros[4])
 
     bool votoExiste = pesquisar_voto(est, voto.id, &voto);
 
-    //int totalDeVotos = obter_total_votos(est, tipo_est);
-
     if (!votoExiste)
-        voto.status = def;
+        voto.statusVotos = def;
 
     int votosCandidato = registrar_escolha(est, classe, candidato, &voto);
     if (!votosCandidato)
@@ -268,10 +266,10 @@ bool remover_voto(Estruturas *est, char *parametros[4])
     if (status)
     {
 
-        if (e.status.votouPrefeito)
+        if (e.statusVotos.votouPrefeito)
             decrementa_candidato(est->hashPrefeitos, e.prefeito);
 
-        if (e.status.votouVereador)
+        if (e.statusVotos.votouVereador)
             decrementa_candidato(est->hashVereadores, e.vereador);
     }
 

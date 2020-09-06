@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\main.exe",
-            "args": ["input.txt"],
+            "args": ["${workspaceFolder}\\entrada3.txt", "${workspaceFolder}\\SAIDA.txt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

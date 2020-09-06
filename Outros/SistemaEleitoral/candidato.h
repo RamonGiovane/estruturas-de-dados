@@ -4,11 +4,11 @@
 
 typedef struct {
     bool vazio;
-    unsigned int numeroVotos;
 }TStatusCandidato;
 
 typedef struct{
     int numeroCandidato;
+    unsigned int numeroVotos;
     TStatusCandidato status;
 }TCandidato;
 

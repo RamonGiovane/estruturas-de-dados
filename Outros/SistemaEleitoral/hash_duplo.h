@@ -8,6 +8,8 @@ typedef struct{
   int tamanho;
   int numElementos;
   int numColisoes;
+
+  int np; //numero primo mais proximo e menor que tamanho
 }t_hash_duplo;
 
 typedef t_hash_duplo *HashDuplo;
