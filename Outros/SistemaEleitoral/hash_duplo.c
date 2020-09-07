@@ -81,14 +81,12 @@ int pesquisa_hash_duplo(HashDuplo t, TChave ch, TElemento *e) {
             if (t->elementos[index].condicao != VAZIO) {
                 index = (index + inc) % size;
                 count++;
-
             }
 
             // Se for um elemento vazio, quer dizer que quem eu procuro sequer
             // foi adicionado
             else
                 return -1;
-
         } else {
             if (t->elementos[index].condicao == DELETADO) {
                 index = (index + inc) % size;

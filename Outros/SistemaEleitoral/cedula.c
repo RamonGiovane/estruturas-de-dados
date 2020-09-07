@@ -26,12 +26,14 @@ unsigned int tch_hash(TChave ch, unsigned int m) {
     return transforma_chave(ch) % m;
 }
 
-//Transforma um TChave em um valor numerico
+//Transforma um TChave em um valor numerico.
 unsigned int transforma_chave(TChave ch) {
     unsigned int i, soma = 0;
     for (i = 0; ch.tituloEleitor[i] != '\0'; i++) {
+        //Através de experimentos notou-se que o somatório de i a um número 
+        //de casas decimais maiores
+        //pode reduzir o número de colisões drasticamente.
         soma += ch.tituloEleitor[i] * (i + 1000);
     }
-
     return soma;
 }

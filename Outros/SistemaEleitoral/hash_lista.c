@@ -26,13 +26,16 @@ HashLista cria_hash_lista(int tamanho) {
 
 int insere_hash_lista(HashLista th, TElemento e) {
     int indice = tch_hash(e.id, th->tam);
-
+    bool colisao = false;
     // Colisão
-    if (th->elementos[indice]->n > 0) th->numColisoes += 1;
+    if (th->elementos[indice]->n > 0) colisao = true;
 
     int statusVotos = insere_apos(th->elementos[indice], e);
 
-    if (statusVotos) th->n += 1;
+      if (statusVotos){
+         th->n += 1;
+         if(colisao) th->numColisoes += 1;
+    }
 
     return statusVotos;
 }
