@@ -90,7 +90,7 @@ bool remocao_invalida(int votosValidos)
 
 void print_exec(int colisoes, int colisoesV, int colisoesP, long tempo){
     printf("\n\n=============\n");
-    printf("\nNúmero de Colisões de Votos: %d", colisoes);
+    printf("\nNúmero de Colisões de Cédulas: %d", colisoes);
     printf("\nNúmero de Colisões de Vereadores: %d", colisoesV);
     printf("\nNúmero de Colisões de Prefeitos: %d", colisoesP);
     printf("\nTempo de Execução: %lu ms\n\n", tempo);
@@ -183,7 +183,7 @@ void fprint(const char * text){
 
 
 void fprint_exec(int colisoes, int colisoesV, int colisoesP, long tempo){
-    fprintf(_def_output_file, "\n\nNúmero de Colisões de Votos: %d", colisoes);
+    fprintf(_def_output_file, "\n\nNúmero de Colisões de Cédulas %d", colisoes);
     fprintf(_def_output_file,"\nNúmero de Colisões de Vereadores: %d", colisoesV);
     fprintf(_def_output_file,"\nNúmero de Colisões de Prefeitos: %d", colisoesP);
     fprintf(_def_output_file, "\nTempo de Execução: %lu ms\n\n", tempo);

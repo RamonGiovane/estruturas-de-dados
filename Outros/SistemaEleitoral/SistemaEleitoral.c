@@ -144,8 +144,7 @@ int entrada_de_dados(int argc, char *argv[]) {
 }
 
 int main(int argc, char *argv[]) {
-    if (setlocale(LC_ALL, "portuguese") == NULL)
-        printf("\nLocalizacao invalida\n");
-
+    
+    setlocale(LC_ALL, "portuguese");
     return entrada_de_dados(argc, argv);
 }

@@ -52,7 +52,7 @@ int insere_atualiza(HashCandidatos t, int key, int incrementoVoto) {
             return t->elementos[index].numeroVotos;
         }
 
-        t->numColisoes++;
+        t->numColisoes += 1;
         index = (index + inc) % t->tamanho;
 
         if (comps++ == t->tamanho) return 0;
@@ -66,7 +66,7 @@ int insere_atualiza(HashCandidatos t, int key, int incrementoVoto) {
 
         t->elementos[index] = c;
 
-        t->numElementos++;
+        t->numElementos += 1;
     }
 
     return t->elementos[index].numeroVotos;

@@ -50,13 +50,13 @@ int insere_hash_duplo(HashDuplo t, TElemento e) {
         // Se quem eu quero inserir ja existe, retorna 0
         if (tchcmp(t->elementos[index].id, e.id) == 0) return 0;
 
-        t->numColisoes++;
+        t->numColisoes += 1;
         index = (index + inc) % t->tamanho;
     }
 
     e.condicao = CHEIO;
     t->elementos[index] = e;
-    t->numElementos++;
+    t->numElementos += 1;
 
     return 1;
 }

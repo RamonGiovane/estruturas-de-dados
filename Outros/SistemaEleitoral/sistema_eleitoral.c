@@ -91,13 +91,13 @@ bool editar_voto(Estruturas *est, TElemento e) {
     int status;
     if (est->tipo_estrutura == HASH_LISTA) {
         status = altera_hash_lista(est->hashLista, e);
-        if (status) est->hashLista->n++;
+        if (status) est->hashLista->n += 1;
     } else if (est->tipo_estrutura == HASH_DUPLO) {
         status = altera_hash_duplo(est->hashDuplo, e);
-        if (status) est->hashDuplo->numElementos++;
+        if (status) est->hashDuplo->numElementos += 1;
     } else {
         status = altera_hash_abp(est->hashAbp, e);
-        est->hashAbp->n++;
+        est->hashAbp->n += 1;
     }
 
     return status;
