@@ -1,5 +1,7 @@
 # Estruturas de Dados em C
 
+- Lista Encadeada
+
 - Árvore Binária de Pesquisa
 
 - Tabela Hash Com Encadeamento Externo
