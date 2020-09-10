@@ -3,11 +3,11 @@
 #include "grafo.h"
 
 Grafo cria_grafo(){
-    
+
     Grafo g = (Grafo) malloc(sizeof(TGrafo));
-    
+
     if(g){
-    
+
       g->num_vert = 0;
 
       for(int i = 0; i<MAX; i++){
@@ -32,7 +32,7 @@ int pesquisa_vertice(Grafo g, TChave ch){
 
 
 int insere_em_lista(Lista l, TChave ch, TPeso p){
-    
+
     TElemento e;
     e.chave = ch;
     e.peso = p;
@@ -55,16 +55,16 @@ int insere_em_lista(Lista l, TChave ch, TPeso p){
     {
         l->last->next = n;
     }
-    
+
     l->tamanho++;
 
     return 1;
-    
+
 }
 
 
 int procura_em_lista(Lista l, TChave ch){
-    
+
     if(!l) return 0;
 
     TNodo* n = l->first;
@@ -72,7 +72,7 @@ int procura_em_lista(Lista l, TChave ch){
     while(n){
         if(n->info.chave == ch)
             return 1;
-        
+
         n = n->next;
     }
 
@@ -107,7 +107,7 @@ int remove_em_lista(Lista l, TChave ch){
     n = n->next;
     aux = n;
     while(n){
-        
+
         if(n->info.chave == ch){
             aux->next = n->next;
             free(aux);
@@ -144,7 +144,7 @@ int insere_aresta(Grafo g, TChave v1, TChave v2, TPeso p){
 
 
 int insere_vertice(Grafo g, TElemento e){
-    
+
     //Verifica se o grafo esta cheio ou se o vertice ja existe
     if(g->num_vert == MAX || pesquisa_vertice(g, e.chave) != -1)
         return 0;
@@ -153,7 +153,7 @@ int insere_vertice(Grafo g, TElemento e){
     g->num_vert++;
 
     g->vertices[g->num_vert].status = espera;
-    
+
     return 1;
 }
 
@@ -161,43 +161,43 @@ int insere_vertice(Grafo g, TElemento e){
 
 //Remove a aresta ch do vertice v no grafo g
 int remove_aresta(Grafo g, TChave v, TChave ch){
-    
+
     //Verifica se o vertice existe
     int i = pesquisa_vertice(g, v);
 
     if(i == -1)
         return 0;
-    
+
     return remove_em_lista(g->vertices[i].listaAdjacencia, ch);
-    
+
 }
-    
+
 int remove_vertice(Grafo g, TChave ch){
-    
+
     //Verifica se o vertice existe
     int i = pesquisa_vertice(g, ch);
 
     if(i == -1)
         return 0;
-    
+
     //Tamanho do grafo
     int t = g->num_vert -1;
-    
+
     g->vertices[i] = g->vertices[t];
-    
-    TNodo* n = g->vertices[t].listaAdjacencia->first, aux;
+
+    TNodo* n = g->vertices[t].listaAdjacencia->first;
 
     while(n){
         remove_aresta(g, n->info.chave, ch);
         n = n->next;
     }
-    
+
     free(g->vertices[t].listaAdjacencia);
-    
+
     g->num_vert--;
-   
+
     return 1;
-    
+
 }
 
 //void termina_grafo(Grafo g);

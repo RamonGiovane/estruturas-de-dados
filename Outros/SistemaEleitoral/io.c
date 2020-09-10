@@ -149,7 +149,6 @@ clock_t cronometrar(clock_t start){
 }
 
 
-
 bool fvotoValido(int candidato, int votosCandidato){
 
     fprintf(_def_output_file, "voto computado, candidato %d tem %d voto(s)\n", candidato, votosCandidato);
