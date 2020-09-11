@@ -15,15 +15,13 @@ static int jaPercorrido[TAB][TAB * TAB][2];
 static int tamanhoJP[TAB];
 
 
-static int indice;
-
 static int solucoes = 0;
 
 
 int proxima_pos_livre(int id, int* l, int* c) {
 
     //Status
-    int st = 0; //POSSIVELMENTE STACKOVERFLOW
+    int st = 0; 
 
     if (*l == TAB || *c == TAB) return 0;
 
@@ -42,12 +40,12 @@ int proxima_pos_livre(int id, int* l, int* c) {
                         *c = 0;
                         *l += 1;
                     }
-                    st = 1;
+                    return proxima_pos_livre(id, l, c);
                 }
             }
                 
             //Verifca se bate a linha
-            else if (rainhas[i][0] == *l) {
+            if (rainhas[i][0] == *l) {
                 *l += 1;
                 *c = 0;
                 st = 1;
@@ -98,7 +96,7 @@ int insere(int id, int lin, int col) {
 
         status = insere(id+1, 0, 0);
 
-        //Armazena n/ esta posição no vetor de percorridos por esta rainha
+        //Armazena nesta posição no vetor de percorridos por esta rainha
         jaPercorrido[id][tamanhoJP[id]][0] = *l;
         jaPercorrido[id][tamanhoJP[id]][0] = *c;
 
@@ -109,9 +107,13 @@ int insere(int id, int lin, int col) {
             return 0;
         }
 
+        return insere(id, 0, 0);
+
     }
+
+    return 0;
     
-    return insere(id, 0, 0);
+    
 
 }
 
@@ -122,6 +124,6 @@ int main(int argc, char* argv[]) {
 
     printf("%d ", insere(0, l, c));
 
-    printf("Hello world! %d\n");
+    printf("Hello world!");
     return 0;
 }
