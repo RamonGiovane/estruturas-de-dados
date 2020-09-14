@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1600042628 source:c:\users\t.i\desktop\ramon\ed2\outros\caminhomaiscurto\grafo.c
+	<stdio.h>
+	<stdlib.h>
+	"grafo.h"
+
+1600042424 c:\users\t.i\desktop\ramon\ed2\outros\caminhomaiscurto\grafo.h
+
+1600046379 source:c:\users\t.i\desktop\ramon\ed2\outros\caminhomaiscurto\main.c
+	<stdio.h>
+	<stdlib.h>
+	"grafo.h"
+
